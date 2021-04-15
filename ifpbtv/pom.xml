@@ -8,11 +8,11 @@
 		<version>2.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tv.ifpb</groupId>
+	<groupId>com.ads.ifpbtv</groupId>
 	<artifactId>ifpbtv</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ifpbtv</name>
-	<description>projeto de pj1</description>
+	<description>Projeto IFPB-TV</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

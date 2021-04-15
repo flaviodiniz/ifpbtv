@@ -1,4 +1,4 @@
-package com.tv.ifpb;
+package com.ads.ifpbtv;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

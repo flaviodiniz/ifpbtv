@@ -1,4 +1,4 @@
-package com.tv.ifpb;
+package com.ads.ifpbtv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
