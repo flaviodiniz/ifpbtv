@@ -22,29 +22,33 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	
 	@GetMapping("/{id}")
 	public Usuario buscarPeloCodigo(@PathVariable Long id) {
 		return usuarioService.buscarPeloCodigo(id);
 	}
+	
 	
 	@PutMapping("/{id}")
 	public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
 		return usuarioService.atualizar(id, usuario);
 	}
 	
+	
 	@GetMapping("/all")
 	public List<Usuario> listarTodos() {
 		return usuarioService.listarTodos();
 	}
+	
 	
 	@PostMapping
 	public Usuario salvar(Usuario usuario) {
 		return usuarioService.salvar(usuario);
 	}
 	
+	
 	@DeleteMapping("/{id}")
 	public void remove(@PathVariable Long id) {
 		usuarioService.remove(id);
 	}
-
 }

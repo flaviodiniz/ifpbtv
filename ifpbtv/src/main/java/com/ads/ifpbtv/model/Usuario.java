@@ -6,29 +6,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sun.istack.NotNull;
-//import javax.validation.constraints.NotNull;
-
 @Entity
-@Table(name = "usuario")
+@Table(name = "TB_USUARIOS")
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotNull
+	
 	private String nome;
-	@NotNull
+	
 	private String email;
-	@NotNull
+	
 	private String senha;
-	@NotNull
+	
 	private String matricula;
-	@NotNull
+	
 	private boolean ativo;
-	@NotNull	
+	
 	private Perfil perfil;
 	
+	
+	public Usuario() {}
+	
+	public Usuario(Long id, String nome, String email, String senha, String matricula, boolean ativo, Perfil perfil) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.matricula = matricula;
+		this.ativo = ativo;
+		this.perfil = perfil;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -109,5 +122,4 @@ public class Usuario {
 			return false;
 		return true;
 	}	
-
 }

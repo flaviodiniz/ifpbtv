@@ -20,30 +20,41 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	
 	public Usuario buscarPeloCodigo(Long id) {
+		
 		Usuario usuarioSalvo = usuarioRepository.getOne(id);
-		if(usuarioSalvo == null) {
-			throw new EmptyResultDataAccessException(1);
-		}
+		
+		if(usuarioSalvo == null) throw new EmptyResultDataAccessException(1);
+		
 		return usuarioSalvo;		
 	}
 	
+	
 	public Usuario atualizar(Long id, Usuario usuario) {
+		
 		Usuario usuarioSalvo = buscarPeloCodigo(id);
+		
 		BeanUtils.copyProperties(usuario, usuarioSalvo, "id");
+		
 		return usuarioRepository.save(usuarioSalvo);
 	}
 	
+	
 	public List<Usuario> listarTodos() {
+		
 		return usuarioRepository.findAll();
 	}
 	
+	
 	public Usuario salvar(Usuario usuario) {
+		
 		return usuarioRepository.save(usuario);
 	}
 	
+	
 	public void remove(Long id) {
+		
 		usuarioRepository.deleteById(id);
 	}
-
 }
