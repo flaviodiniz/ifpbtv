@@ -1,12 +1,16 @@
 package com.ads.ifpbtv.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 //import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 	
 	@Id
@@ -14,10 +18,15 @@ public class Usuario {
 	private Long id;
 	@NotNull
 	private String nome;
+	@NotNull
 	private String email;
+	@NotNull
 	private String senha;
+	@NotNull
 	private String matricula;
+	@NotNull
 	private boolean ativo;
+	@NotNull	
 	private Perfil perfil;
 	
 	public Long getId() {
