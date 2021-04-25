@@ -9,5 +9,4 @@ public class IfpbtvApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IfpbtvApplication.class, args);
 	}
-
 }

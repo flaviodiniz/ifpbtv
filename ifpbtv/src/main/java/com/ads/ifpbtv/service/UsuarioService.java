@@ -1,13 +1,13 @@
 package com.ads.ifpbtv.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-//import com.ads.ifpbtv.dao.UsuarioDao;
+import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Usuario;
 import com.ads.ifpbtv.repository.UsuarioRepository;
 
@@ -23,11 +23,9 @@ public class UsuarioService {
 	
 	public Usuario buscarPeloCodigo(Long id) {
 		
-		Usuario usuarioSalvo = usuarioRepository.getOne(id);
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		
-		if(usuarioSalvo == null) throw new EmptyResultDataAccessException(1);
-		
-		return usuarioSalvo;		
+		return usuario.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Usuario.class.getName()));
 	}
 	
 	
