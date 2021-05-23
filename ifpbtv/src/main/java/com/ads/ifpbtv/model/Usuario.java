@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_USUARIOS")
+@Table(name = "usuario")
 public class Usuario {
 	
 	@Id
@@ -15,15 +15,10 @@ public class Usuario {
 	private Long id;
 	
 	private String nome;
-	
 	private String email;
-	
 	private String senha;
-	
 	private String matricula;
-	
 	private boolean ativo;
-	
 	private Perfil perfil;
 	
 	

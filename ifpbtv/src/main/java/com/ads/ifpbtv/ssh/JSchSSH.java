@@ -122,7 +122,8 @@ public class JSchSSH {
 			
 			dirDestino = dirDestino.replace(" ", "_");									
 			sftp.cd(dirDestino);
-			sftp.put(origem, destino);			
+			sftp.put(origem, destino);
+			//sftp.put(commandOutput, dirDestino); //trocar para esse depois
 			sftp.disconnect();
 			
 			return true;
@@ -165,7 +166,9 @@ public class JSchSSH {
 		}
 	}
 	
+	//COMO A APP ANDROID CONVERSA COMO SERVIDOR
 	
+	//COMO ELA REPRODUZ UM VIDEO
 	
 	/*
 	 * APAGA O ARQUIVO DO DIRETORIO REMOTO
@@ -178,20 +181,24 @@ public class JSchSSH {
 		
 		try {
 			
-			if(existeArquivo(caminhoDoArquivo)) {
-				
-				executeCommand("rm " + caminhoDoArquivo);
-				
-				LOG.info("ARQUIVO " + caminhoDoArquivo + " EXCLUIDO COM SUCESSO!");
-				
-				return true;
-				
-			} else {
-				
-				LOG.warn("O ARQUIVO " + caminhoDoArquivo + " NAO EXISTE!");
-				
-				return false;
-			}
+			
+			executeCommand("rm " + caminhoDoArquivo);
+			
+			LOG.info("ARQUIVO " + caminhoDoArquivo + " EXCLUIDO COM SUCESSO!");
+			
+			return true;
+			
+			
+//			if(existeArquivo(caminhoDoArquivo)) {
+//				
+//				
+//				
+//			} else {
+//				
+//				LOG.warn("O ARQUIVO " + caminhoDoArquivo + " NAO EXISTE!");
+//				
+//				return false;
+//			}
 			
 			
 		} catch (Exception e) {

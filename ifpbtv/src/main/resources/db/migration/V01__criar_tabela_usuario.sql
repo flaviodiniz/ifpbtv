@@ -7,6 +7,11 @@ CREATE TABLE usuario (
 	senha VARCHAR(50) NOT NULL,
 	ativo BOOLEAN NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE usuario ADD UNIQUE (email);
+
+ALTER TABLE usuario ADD UNIQUE (matricula);
+
 	
 
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ads.ifpbtv.model.Usuario;
 
 @Service
-public class UsuarioDao {
+public class UsuarioDAO {
 	
 	//@Autowired
 	//private ConsultasSqlRepository consultaSqlRepository;
