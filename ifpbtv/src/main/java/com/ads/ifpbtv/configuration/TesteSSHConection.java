@@ -13,7 +13,7 @@ public class TesteSSHConection {
 		
 		try {
 			
-			JSchSSH.connect("streaming-server", "streaming-server", "192.168.1.101", 22, "ip addr");
+			JSchSSH.connect("streaming-server", "streaming-server", "192.168.80.128", 22, "ip addr");
 			
 			System.out.println("CONEXÃO SSH REALIZADA COM SUCESSO!");
 			

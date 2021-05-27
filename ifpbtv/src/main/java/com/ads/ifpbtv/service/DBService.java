@@ -1,17 +1,17 @@
 package com.ads.ifpbtv.service;
 
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ads.ifpbtv.model.Usuario;
+//import com.ads.ifpbtv.model.Usuario;
 
 @Service
 public class DBService {
 	
 	@Autowired
-	private UsuarioService userService;
+	//private UsuarioService userService;
 	
 	
 	public void instantiateTestDatabase() {
