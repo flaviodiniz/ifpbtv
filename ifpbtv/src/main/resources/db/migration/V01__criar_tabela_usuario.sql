@@ -12,7 +12,11 @@ ALTER TABLE usuario ADD UNIQUE (email);
 
 ALTER TABLE usuario ADD UNIQUE (matricula);
 
-	
+CREATE TABLE perfil (
+	per_id BIGINT(50) PRIMARY KEY AUTO_INCREMENT,
+	per_descricao VARCHAR(50) NOT NULL,
+	per_status CHAR(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
+INSERT INTO perfil (per_id, per_descricao, per_status) VALUES (1, 'Administrador', 'A');
+INSERT INTO perfil (per_id, per_descricao, per_status) VALUES (2, 'Comum', 'A');

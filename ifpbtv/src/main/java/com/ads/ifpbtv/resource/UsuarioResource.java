@@ -30,69 +30,51 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarPeloCodigo(@PathVariable Long id) {
-		
-		try {
-			
-			Usuario user = usuarioService.buscarPeloCodigo(id);
-			
+		try {	
+			Usuario user = usuarioService.buscarPeloCodigo(id);	
 			return ResponseEntity.ok().body(user);
-			
 		} catch (ObjectNotFoundException e) {
-			
 			UsuarioResponse usuarioResponse = new UsuarioResponse();
-			
 			String trace = Arrays.toString(e.getStackTrace());
-			
 			usuarioResponse.setStatus(false);
 			usuarioResponse.setMensagem("Nenhum usuário foi encontrado! ID: " + id);
 			usuarioResponse.setTrace(trace.substring(1, trace.indexOf(",")));
 			return new ResponseEntity<Object>(usuarioResponse, HttpStatus.NOT_FOUND);
 		}
-		
 	}
 	
-	
 	@PostMapping
-	public ResponseEntity<UsuarioResponse> salvar(@Valid @RequestBody Usuario usuario) {
-		
+	public ResponseEntity<UsuarioResponse> salvar(@Valid @RequestBody Usuario usuario) {	
 		return usuarioService.salvar(usuario);
 	}
 	
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
-		
 		return usuarioService.atualizar(id, usuario);
 	}
 	
-	
 	@GetMapping("/all")
 	public ResponseEntity<List<Usuario>> listarTodos() {
-		
 		List<Usuario> usuarios = usuarioService.listarUsuarios();
-		
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
+	@GetMapping("/perfis")
+	public ResponseEntity<List<String>> listarPerfis() {
+		List<String> usuarios = usuarioService.listarPerfis();
+		return ResponseEntity.ok().body(usuarios);
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
-		
 		try {
-			
 			usuarioService.excluir(id);
-			
 			return ResponseEntity.noContent().build();
-			
 		} catch (EmptyResultDataAccessException e) {
-			
 			UsuarioResponse usuarioResponse = new UsuarioResponse();
-			
 			String trace = Arrays.toString(e.getStackTrace());
-			
 			usuarioResponse.setStatus(false);
 			usuarioResponse.setMensagem("Erro ao remover usuário! ID: " + id + " inexistente.");
 			usuarioResponse.setTrace(trace.substring(1, trace.indexOf(",")));
