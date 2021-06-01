@@ -1,4 +1,4 @@
-package com.ads.ifpbtv.model;
+package com.ads.ifpbtv.model.enums;
 
 public enum Perfil {
 	

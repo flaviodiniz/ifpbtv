@@ -35,32 +35,44 @@ public class TVService {
 		
 		TVResponse tvResponse = new TVResponse();
 		
-		switch (validarInformacoes(tv, null)) {
-		
-		case 0:
+		try {
 			
-			tvRepository.save(tv);
+			switch (validarInformacoes(tv, null)) {
 			
-			tvResponse.setStatus(true);
-			tvResponse.setMensagem("TV salva com sucesso!");
-			return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.OK);
+			case 0:
+				
+				tvRepository.save(tv);
+				
+				tvResponse.setStatus(true);
+				tvResponse.setMensagem("TV salva com sucesso!");
+				return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.OK);
+				
+			case 1:
+				
+				tvResponse.setStatus(false);
+				tvResponse.setMensagem("A chave inserida já existe!");
+				return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.BAD_REQUEST);
+				
+			case 2:
+				
+				tvResponse.setStatus(false);
+				tvResponse.setMensagem("Ocorreu um erro interno no momento de salvar a TV!");
+				return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+				
+			default:
+				
+				tvResponse.setStatus(false);
+				tvResponse.setMensagem("Ocorreu um erro interno!");
+				return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 			
-		case 1:
+		} catch (DataIntegrityViolationException e) {
+			
+			String trace = Arrays.toString(e.getStackTrace());
 			
 			tvResponse.setStatus(false);
-			tvResponse.setMensagem("A chave inserida já existe!");
-			return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.BAD_REQUEST);
-			
-		case 2:
-			
-			tvResponse.setStatus(false);
-			tvResponse.setMensagem("Ocorreu um erro interno no momento de salvar a TV!");
-			return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		default:
-			
-			tvResponse.setStatus(false);
-			tvResponse.setMensagem("Ocorreu um erro interno!");
+			tvResponse.setMensagem("Ocorreu um erro de integridade de dados! Não foi possível salvar a TV.");
+			tvResponse.setTrace(trace.substring(1, trace.indexOf(",")));
 			return new ResponseEntity<TVResponse>(tvResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -123,26 +135,34 @@ public class TVService {
 		int erroChave = 1;
 		int erroInterno = 2;
 		
-		if(id == null) { //SALVANDO TV PELA PRIMEIRA VEZ
+		try {
 			
-			TV aux = tvRepository.findByChave(tv.getChave());
+			if(tv.getLocal().isEmpty() || tv.getModelo().isEmpty() || tv.getMarca().isEmpty() || tv.getChave().isEmpty() || tv.isDisponivel() == null) return erroInterno;
 			
-			if(aux != null) return erroChave;
-			
-			return tudoOk;
-			
-		} else { //ATUALIZANDO TV JA EXISTENTE
-			
-			TV tvSalva = buscarPeloCodigo(id);
-			
-			if(tvSalva != null) {
+			if(id == null) { //SALVANDO TV PELA PRIMEIRA VEZ
 				
 				TV aux = tvRepository.findByChave(tv.getChave());
 				
 				if(aux != null) return erroChave;
 				
 				return tudoOk;
+				
+			} else { //ATUALIZANDO TV JA EXISTENTE
+				
+				TV tvSalva = buscarPeloCodigo(id);
+				
+				if(tvSalva != null) {
+					
+					TV aux = tvRepository.findByChave(tv.getChave());
+					
+					if(aux != null) return erroChave;
+					
+					return tudoOk;
+				}
+				return erroInterno;
 			}
+			
+		} catch (NullPointerException e) {
 			return erroInterno;
 		}
 	}

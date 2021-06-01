@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ads.ifpbtv.model.enums.DisponibilidadeTV;
+
 @Entity
 @Table(name = "tv")
 public class TV {
@@ -23,14 +25,14 @@ public class TV {
 	private String chave;
 	
 	@Column(name = "tv_disponivel")
-	private Disponibilidade disponivel;
+	private DisponibilidadeTV disponivel;
 	
 	@Column(name = "tv_online")
 	private boolean online;
 	
 	public TV() {}
 
-	public TV(Long id, String local, String modelo, String marca, String chave, Disponibilidade disponivel, boolean online) {
+	public TV(Long id, String local, String modelo, String marca, String chave, DisponibilidadeTV disponivel, boolean online) {
 		super();
 		this.id = id;
 		this.local = local;
@@ -89,11 +91,11 @@ public class TV {
 		this.chave = chave;
 	}
 
-	public Disponibilidade isDisponivel() {
+	public DisponibilidadeTV isDisponivel() {
 		return disponivel;
 	}
 
-	public void setDisponivel(Disponibilidade disponivel) {
+	public void setDisponivel(DisponibilidadeTV disponivel) {
 		this.disponivel = disponivel;
 	}
 

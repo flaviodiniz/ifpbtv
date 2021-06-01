@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ads.ifpbtv.model.enums.Perfil;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {

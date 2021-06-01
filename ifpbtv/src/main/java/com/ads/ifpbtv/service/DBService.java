@@ -5,14 +5,10 @@ package com.ads.ifpbtv.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//import com.ads.ifpbtv.model.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.ads.ifpbtv.model.Disponibilidade;
-import com.ads.ifpbtv.model.Perfil;
 import com.ads.ifpbtv.model.TV;
 import com.ads.ifpbtv.model.Usuario;
+import com.ads.ifpbtv.model.enums.DisponibilidadeTV;
+import com.ads.ifpbtv.model.enums.Perfil;
 
 
 @Service
@@ -40,9 +36,9 @@ public class DBService {
 		userService.salvar(user3);
 		
 		
-		TV tv1 = new TV(null, "TV - Biblioteca", "Smart TV", "TCL", "123", Disponibilidade.NAO, false);
-		TV tv2 = new TV(null, "TV - Bloco D", "Smart TV", "TCL", "456", Disponibilidade.SIM, false);
-		TV tv3 = new TV(null, "TV - Bloco Administrativo", "Smart TV", "TCL", "789", Disponibilidade.SIM, false);
+		TV tv1 = new TV(null, "TV - Biblioteca", "Smart TV", "TCL", "123", DisponibilidadeTV.NAO, false);
+		TV tv2 = new TV(null, "TV - Bloco D", "Smart TV", "TCL", "456", DisponibilidadeTV.SIM, false);
+		TV tv3 = new TV(null, "TV - Bloco Administrativo", "Smart TV", "TCL", "789", DisponibilidadeTV.SIM, false);
 		
 		tvService.salvar(tv1);
 		tvService.salvar(tv2);
