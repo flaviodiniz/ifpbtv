@@ -6,5 +6,11 @@ CREATE TABLE cmdbancodedados (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (1, 'seleciona todos perfis', 'SELECT * FROM ifpbtv.perfil WHERE per_status = ''A''','A');
-
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (2, 'seleciona usuarios', 
+  'SELECT *
+FROM usuario usu
+INNER JOIN perfil per ON per.per_id = usu.perfil 
+WHERE usu.nome = ? OR -1 = ?
+  AND (usu.matricula = ? OR -1 = ?)
+  AND (per.per_descricao = ? OR -1 = ?)','A');
 

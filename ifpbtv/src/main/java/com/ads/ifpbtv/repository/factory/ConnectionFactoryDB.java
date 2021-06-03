@@ -34,14 +34,7 @@ public abstract class ConnectionFactoryDB {
 	
 	@Value("${spring.datasource.password}")
 	String strSenha;
-	
-	
-//	java application
-//	String url = "jdbc:oracle:thin:@setranspe1-scan:1521/setrans";
-//	String strUsuario = "urbana";
-//	String strSenha = "urbana2015";
-
-	
+		
 	protected  Connection getConexao() {
 		Connection conexao = null;
 		try {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,8 +46,9 @@ public class UsuarioResource {
 		}
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
-	public ResponseEntity<UsuarioResponse> salvar(@Valid @RequestBody Usuario usuario) {	
+	public ResponseEntity<UsuarioResponse> salvar(@RequestBody Usuario usuario) {	
 		return usuarioService.salvar(usuario);
 	}
 	
@@ -59,8 +61,9 @@ public class UsuarioResource {
 	public ResponseEntity<List<Usuario>> listarTodos() {
 		List<Usuario> usuarios = usuarioService.listarUsuarios();
 		return ResponseEntity.ok().body(usuarios);
-	}
+	} 
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/perfis")
 	public ResponseEntity<List<String>> listarPerfis() {
 		List<String> usuarios = usuarioService.listarPerfis();
