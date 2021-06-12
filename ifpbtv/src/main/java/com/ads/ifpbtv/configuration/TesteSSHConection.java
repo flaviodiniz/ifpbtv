@@ -1,25 +1,25 @@
 package com.ads.ifpbtv.configuration;
 
-import org.springframework.context.annotation.Bean;
-
-import com.ads.ifpbtv.ssh.JSchSSH;
+//import org.springframework.context.annotation.Bean;
+//
+//import com.ads.ifpbtv.ssh.JSchSSH;
 
 //@Configuration
 public class TesteSSHConection {
 	
-	@Bean
-	public void conexaoSSHViaJSch() {
-		
-		try {
-			
-			//JSchSSH.connect("streaming-server", "streaming-server", "192.168.80.128", 22, "ip addr");
-			System.out.println("CONEXÃO SSH REALIZADA COM SUCESSO!");
-			
-		} catch (Exception e) {
-			System.out.println("CONEXÃO SSH FALHOU!!!");
-			e.printStackTrace();
-		}
-	}
+//	@Bean
+//	public void conexaoSSHViaJSch() {
+//		
+//		try {
+//			
+//			//JSchSSH.connect("streaming-server", "streaming-server", "192.168.80.128", 22, "ip addr");
+//			System.out.println("CONEXÃO SSH REALIZADA COM SUCESSO!");
+//			
+//		} catch (Exception e) {
+//			System.out.println("CONEXÃO SSH FALHOU!!!");
+//			e.printStackTrace();
+//		}
+//	}
 	
 //	@Autowired
 //	private SSHService ssh;

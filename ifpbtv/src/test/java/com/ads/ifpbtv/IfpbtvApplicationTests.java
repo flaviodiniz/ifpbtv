@@ -5,16 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import com.ads.ifpbtv.model.TV;
+import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Usuario;
-import com.ads.ifpbtv.model.enums.DisponibilidadeTV;
 import com.ads.ifpbtv.model.enums.Perfil;
-import com.ads.ifpbtv.model.response.TVResponse;
-import com.ads.ifpbtv.model.response.UsuarioResponse;
 import com.ads.ifpbtv.service.TVService;
 import com.ads.ifpbtv.service.UsuarioService;
 
@@ -32,7 +26,7 @@ class IfpbtvApplicationTests {
 		
 		//TESTE BUSCANDO USUARIO COM SUCESSO
 		
-		//Usuario user = new Usuario(Long.parseLong("1"), "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", true, Perfil.ADMINISTRADOR);
+		Usuario user = new Usuario(Long.parseLong("1"), "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", true, Perfil.ADMINISTRADOR);
 //		
 //		assertEquals(userService.buscarPeloCodigo(Long.parseLong("1")), user);
 		

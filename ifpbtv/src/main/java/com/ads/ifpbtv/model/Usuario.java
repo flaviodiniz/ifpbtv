@@ -1,9 +1,14 @@
 package com.ads.ifpbtv.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ads.ifpbtv.model.enums.Perfil;
@@ -23,6 +28,8 @@ public class Usuario {
 	private boolean ativo;
 	private Perfil perfil;
 	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Midia> midias = new ArrayList<>();
 	
 	public Usuario() {}
 	
@@ -95,6 +102,14 @@ public class Usuario {
 		this.perfil = perfil;
 	}
 			
+	public List<Midia> getMidias() {
+		return midias;
+	}
+
+	public void setMidias(List<Midia> midias) {
+		this.midias = midias;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

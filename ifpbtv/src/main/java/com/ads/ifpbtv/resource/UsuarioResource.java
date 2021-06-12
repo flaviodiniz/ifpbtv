@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Usuario;
+import com.ads.ifpbtv.model.request.UsuarioRequest;
 import com.ads.ifpbtv.model.response.UsuarioResponse;
 import com.ads.ifpbtv.service.UsuarioService;
 
@@ -48,13 +49,13 @@ public class UsuarioResource {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
-	public ResponseEntity<UsuarioResponse> salvar(@RequestBody Usuario usuario) {	
-		return usuarioService.salvar(usuario);
+	public ResponseEntity<UsuarioResponse> salvar(@RequestBody UsuarioRequest usuarioRequest) {	
+		return usuarioService.salvar(usuarioRequest);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
-		return usuarioService.atualizar(id, usuario);
+	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest usuarioRequest) {
+		return usuarioService.atualizar(id, usuarioRequest);
 	}
 	
 	@GetMapping("/all")

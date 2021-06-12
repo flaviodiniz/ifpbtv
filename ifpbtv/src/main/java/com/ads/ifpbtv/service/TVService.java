@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.TV;
+import com.ads.ifpbtv.model.request.TVRequest;
 import com.ads.ifpbtv.model.response.TVResponse;
 import com.ads.ifpbtv.repository.TVRepository;
 
@@ -31,16 +32,16 @@ public class TVService {
 	}
 	
 	
-	public ResponseEntity<TVResponse> salvar(TV tv) {
+	public ResponseEntity<TVResponse> salvar(TVRequest tvRequest) {
 		
 		TVResponse tvResponse = new TVResponse();
 		
 		try {
 			
-			switch (validarInformacoes(tv, null)) {
+			switch (validarInformacoes(tvRequest, null)) {
 			
 			case 0:
-				
+				TV tv = fromRequest(tvRequest);
 				tvRepository.save(tv);
 				
 				tvResponse.setStatus(true);
@@ -78,20 +79,18 @@ public class TVService {
 	}
 	
 	
-	public ResponseEntity<TVResponse> atualizar(Long id, TV tv) {
+	public ResponseEntity<TVResponse> atualizar(Long id, TVRequest tvRequest) {
 		
 		TVResponse tvResponse = new TVResponse();
 		
 		try {
 			
-			switch (validarInformacoes(tv, id)) {
+			switch (validarInformacoes(tvRequest, id)) {
 			
 			case 0:
-				
+				TV tv = fromRequest(tvRequest);
 				TV tvSalva = buscarPeloCodigo(id);
-				
 				BeanUtils.copyProperties(tv, tvSalva, "id");
-				
 				tvRepository.save(tvSalva);
 				
 				tvResponse.setStatus(true);
@@ -129,7 +128,7 @@ public class TVService {
 	}
 	
 	
-	private Integer validarInformacoes(TV tv, Long id) {
+	private Integer validarInformacoes(TVRequest tvRequest, Long id) {
 		
 		int tudoOk = 0;
 		int erroChave = 1;
@@ -137,11 +136,11 @@ public class TVService {
 		
 		try {
 			
-			if(tv.getLocal().isEmpty() || tv.getModelo().isEmpty() || tv.getMarca().isEmpty() || tv.getChave().isEmpty() || tv.isDisponivel() == null) return erroInterno;
+			if(tvRequest.getLocal().isEmpty() || tvRequest.getModelo().isEmpty() || tvRequest.getMarca().isEmpty() || tvRequest.getChave().isEmpty() || tvRequest.getDisponivel() == null) return erroInterno;
 			
 			if(id == null) { //SALVANDO TV PELA PRIMEIRA VEZ
 				
-				TV aux = tvRepository.findByChave(tv.getChave());
+				TV aux = tvRepository.findByChave(tvRequest.getChave());
 				
 				if(aux != null) return erroChave;
 				
@@ -153,7 +152,7 @@ public class TVService {
 				
 				if(tvSalva != null) {
 					
-					TV aux = tvRepository.findByChave(tv.getChave());
+					TV aux = tvRepository.findByChave(tvRequest.getChave());
 					
 					if(aux != null) return erroChave;
 					
@@ -172,8 +171,14 @@ public class TVService {
 		return tvRepository.findAll();
 	}
 	
-	
 	public void excluir(Long id) {
 		tvRepository.deleteById(id);
+	}
+	
+	private TV fromRequest(TVRequest tvRequest) {
+		
+		TV tv = new TV(null, tvRequest.getLocal(), tvRequest.getModelo(), tvRequest.getMarca(), tvRequest.getChave(), tvRequest.getDisponivel(), tvRequest.isOnline());
+		
+		return tv;
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.TV;
+import com.ads.ifpbtv.model.request.TVRequest;
 import com.ads.ifpbtv.model.response.TVResponse;
 import com.ads.ifpbtv.service.TVService;
 
@@ -55,14 +56,14 @@ public class TVResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<TVResponse> salvar(@Valid @RequestBody TV tv) {
-		return tvService.salvar(tv);
+	public ResponseEntity<TVResponse> salvar(@Valid @RequestBody TVRequest tvRequest) {
+		return tvService.salvar(tvRequest);
 	}
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<TVResponse> atualizar(@PathVariable Long id, @Valid @RequestBody TV tv) {
-		return tvService.atualizar(id, tv);
+	public ResponseEntity<TVResponse> atualizar(@PathVariable Long id, @Valid @RequestBody TVRequest tvRequest) {
+		return tvService.atualizar(id, tvRequest);
 	}
 	
 	

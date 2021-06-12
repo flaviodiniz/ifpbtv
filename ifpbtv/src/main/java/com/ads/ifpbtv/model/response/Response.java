@@ -3,9 +3,7 @@ package com.ads.ifpbtv.model.response;
 public abstract class Response {
 	
 	private Boolean status;
-	
 	private String mensagem;
-	
 	private String trace;
 
 	public Boolean getStatus() {
