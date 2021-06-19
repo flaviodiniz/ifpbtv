@@ -30,7 +30,6 @@ public class UsuarioService {
 	private ValidarSenhas validar = new ValidarSenhas();
 		
 	public Usuario buscarPeloCodigo(Long id) {	
-		
 		Optional<Usuario> usuario = usuarioRepository.findById(id);	
 		return usuario.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Usuario.class.getName()));
 	}
@@ -212,8 +211,13 @@ public class UsuarioService {
 		}
 	}
 		
+	//vai ficar desnecessario
 	public List<Usuario> listarUsuarios() {	
 		return usuarioRepository.findAll();
+	}
+	
+	public List<Usuario> getUsuarios(String nome, String matricula, String perfil) {	
+		return usuarioDAO.filtrarUsuarios(nome, matricula, perfil);
 	}
 	
 	public List<String> listarPerfis() {	

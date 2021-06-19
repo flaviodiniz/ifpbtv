@@ -31,6 +31,7 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarPeloCodigo(@PathVariable Long id) {
 		try {	
@@ -52,6 +53,7 @@ public class UsuarioResource {
 		return usuarioService.salvar(usuario);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
 		return usuarioService.atualizar(id, usuario);
@@ -70,6 +72,14 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/{nome}/{matricula}/{perfil}")
+	public ResponseEntity<List<Usuario>> getUsuarios(@PathVariable String nome, @PathVariable String matricula, @PathVariable String perfil) {
+		List<Usuario> usuarios = usuarioService.getUsuarios(nome, matricula, perfil);
+		return ResponseEntity.ok().body(usuarios);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {
