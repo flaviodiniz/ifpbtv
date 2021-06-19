@@ -1,5 +1,6 @@
 package com.ads.ifpbtv.service;
 
+<<<<<<< HEAD
 //import java.util.List;
 
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,15 @@ package com.ads.ifpbtv.service;
 
 
 //@Service
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ads.ifpbtv.model.TV;
+import com.ads.ifpbtv.model.Usuario;
+
+@Service
+>>>>>>> 43ff5d2e32e105d63b6a315c7f37e79dc9456679
 public class DBService {
 	
 	//private BCryptPasswordEncoder criptografarSenha; //pra usar na senha antes de salvar ela no banco.
@@ -27,6 +37,7 @@ public class DBService {
 		
 		//SALVANDO USUARIO (OK)
 		
+<<<<<<< HEAD
 //		Usuario user1 = new Usuario(null, "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", true, Perfil.ADMINISTRADOR);
 //		Usuario user2 = new Usuario(null, "TESTE 02", "teste02@gmail.com", "abcdef456", "987654321", true, Perfil.VISITANTE);
 //		Usuario user3 = new Usuario(null, "TESTE 03", "teste03@gmail.com", "abcdef789", "001234567", true, Perfil.VISITANTE);
@@ -43,6 +54,24 @@ public class DBService {
 //		tvService.salvar(tv1);
 //		tvService.salvar(tv2);
 //		tvService.salvar(tv3);
+=======
+		Usuario user1 = new Usuario(null, "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", "Ativo", "Administrador" );
+		Usuario user2 = new Usuario(null, "TESTE 02", "teste02@gmail.com", "abcdef456", "987654321", "Inativo", "Administrador" );
+		Usuario user3 = new Usuario(null, "TESTE 03", "teste03@gmail.com", "abcdef789", "001234567", "Ativo", "Comun");
+		
+		userService.salvar(user1);
+		userService.salvar(user2);
+		userService.salvar(user3);
+		
+		
+		TV tv1 = new TV(null, "TV - Biblioteca", "Smart TV", "TCL", "123", "NAO", false);
+		TV tv2 = new TV(null, "TV - Bloco D", "Smart TV", "TCL", "456", "SIM", false);
+		TV tv3 = new TV(null, "TV - Bloco Administrativo", "Smart TV", "TCL", "789", "SIM", false);
+		
+		tvService.salvar(tv1);
+		tvService.salvar(tv2);
+		tvService.salvar(tv3);
+>>>>>>> 43ff5d2e32e105d63b6a315c7f37e79dc9456679
 		
 //		Usuario user4 = new Usuario(null, "TESTEE 04", "teste04@gmail.com", "007", "00123456789", true, Perfil.VISITANTE);
 //		

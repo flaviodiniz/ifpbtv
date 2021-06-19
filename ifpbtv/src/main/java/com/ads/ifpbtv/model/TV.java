@@ -1,13 +1,10 @@
 package com.ads.ifpbtv.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.ads.ifpbtv.model.enums.DisponibilidadeTV;
 
 @Entity
 @Table(name = "tv")
@@ -16,24 +13,16 @@ public class TV {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "local_tv")
 	private String local;
-	
 	private String modelo;
 	private String marca;
 	private String chave;
-	
-	@Column(name = "tv_disponivel")
-	private DisponibilidadeTV disponivel;
-	
-	@Column(name = "tv_online")
+	private String disponivel;
 	private boolean online;
 	
 	public TV() {}
 
-	public TV(Long id, String local, String modelo, String marca, String chave, DisponibilidadeTV disponivel, boolean online) {
-		super();
+	public TV(Long id, String local, String modelo, String marca, String chave, String disponivel, boolean online) {
 		this.id = id;
 		this.local = local;
 		this.modelo = modelo;
@@ -91,11 +80,15 @@ public class TV {
 		this.chave = chave;
 	}
 
-	public DisponibilidadeTV isDisponivel() {
+	public String getDisponivel() {
 		return disponivel;
 	}
 
-	public void setDisponivel(DisponibilidadeTV disponivel) {
+	public String isDisponivel() {
+		return disponivel;
+	}
+
+	public void setDisponivel(String disponivel) {
 		this.disponivel = disponivel;
 	}
 

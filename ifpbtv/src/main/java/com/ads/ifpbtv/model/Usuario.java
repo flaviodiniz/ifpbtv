@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.ads.ifpbtv.model.enums.Perfil;
-
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -25,26 +23,29 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String matricula;
+<<<<<<< HEAD
 	private boolean ativo;
 	private Perfil perfil;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Midia> midias = new ArrayList<>();
+=======
+	private String status;
+	private String perfil;
+>>>>>>> 43ff5d2e32e105d63b6a315c7f37e79dc9456679
 	
 	public Usuario() {}
 	
-	public Usuario(Long id, String nome, String email, String senha, String matricula, boolean ativo, Perfil perfil) {
+	public Usuario(Long id, String nome, String email, String senha, String matricula, String status, String perfil) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.matricula = matricula;
-		this.ativo = ativo;
+		this.status = status;
 		this.perfil = perfil;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -86,19 +87,23 @@ public class Usuario {
 		this.matricula = matricula;
 	}
 	
-	public boolean isAtivo() {
-		return ativo;
+	public String isstatus() {
+		return status;
 	}
 	
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
-	public Perfil getPerfil() {
+	public String getPerfil() {
 		return perfil;
 	}
 	
-	public void setPerfil(Perfil perfil) {
+	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
 			

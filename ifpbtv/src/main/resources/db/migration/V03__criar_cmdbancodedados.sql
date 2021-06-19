@@ -9,8 +9,13 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (2, 'seleciona usuarios', 
   'SELECT *
 FROM usuario usu
-INNER JOIN perfil per ON per.per_id = usu.perfil 
-WHERE usu.nome = ? OR -1 = ?
-  AND (usu.matricula = ? OR -1 = ?)
-  AND (per.per_descricao = ? OR -1 = ?)','A');
-
+WHERE usu.nome like ? OR -1 = ?
+  AND (usu.matricula like ? OR -1 = ?)
+  AND (usu.perfil like ? OR -1 = ?)','A');
+  
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (3, 'seleciona todas marcas', 'SELECT * FROM ifpbtv.marca WHERE mar_status = ''A''','A');
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (4, 'seleciona tvs', 
+  'SELECT *
+ FROM tv tv
+ WHERE tv.local like ? OR -1 = ?','A');
+  
