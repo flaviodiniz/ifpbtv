@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ads.ifpbtv.model.enums.DisponibilidadeMidia;
@@ -31,16 +32,18 @@ public class Midia {
 	private String link;
 	private Date dataCriacao;
 	private Integer duracao;
-	private TiposDeMidia tiposDeMidia;
+	private TiposDeMidia tipoMidia;
 	private DisponibilidadeMidia disponibilidadeMidia;
-	private File file;
+	//	private File file;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "midia", cascade = CascadeType.ALL)
-	private List<Chaves> chaves = new ArrayList<>();
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "midia_chave", joinColumns = @JoinColumn(name = "midia")
+//	, inverseJoinColumns = @JoinColumn(name = "chave"))
+//	private List<Chaves> chaves = new ArrayList<Chaves>();
 	
 //	@ManyToMany
 //	@JoinTable(name = "TB_PLAYLIST_MIDIA", joinColumns = @JoinColumn(name = "midia_id"), inverseJoinColumns = @JoinColumn(name = "playlist_id"))
@@ -96,12 +99,12 @@ public class Midia {
 		this.duracao = duracao;
 	}
 
-	public TiposDeMidia getTiposDeMidia() {
-		return tiposDeMidia;
+	public TiposDeMidia getTipoMidia() {
+		return tipoMidia;
 	}
 
-	public void setTiposDeMidia(TiposDeMidia tiposDeMidia) {
-		this.tiposDeMidia = tiposDeMidia;
+	public void setTipoMidia(TiposDeMidia tipoMidia) {
+		this.tipoMidia = tipoMidia;
 	}
 
 	public DisponibilidadeMidia getDisponibilidadeMidia() {
@@ -112,13 +115,13 @@ public class Midia {
 		this.disponibilidadeMidia = disponibilidadeMidia;
 	}
 
-	public File getFile() {
-		return file;
-	}
+	//public File getFile() {
+	//	return file;
+	//}
 
-	public void setFile(File file) {
-		this.file = file;
-	}
+	//public void setFile(File file) {
+		//this.file = file;
+		//}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -128,13 +131,13 @@ public class Midia {
 		this.usuario = usuario;
 	}
 
-	public List<Chaves> getChaves() {
-		return chaves;
-	}
-
-	public void setChaves(List<Chaves> chaves) {
-		this.chaves = chaves;
-	}
+//	public List<Chaves> getChaves() {
+//		return chaves;
+//	}
+//
+//	public void setChaves(List<Chaves> chaves) {
+//		this.chaves = chaves;
+//	}
 
 	@Override
 	public int hashCode() {

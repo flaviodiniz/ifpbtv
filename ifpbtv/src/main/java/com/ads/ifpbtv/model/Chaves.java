@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,10 +15,6 @@ public class Chaves {
 	private Long id;
 	
 	private String chave;
-	
-	@ManyToOne
-	@JoinColumn(name = "midia_id")
-	private Midia midia;
 
 	public Long getId() {
 		return id;
@@ -36,14 +30,6 @@ public class Chaves {
 
 	public void setChave(String chave) {
 		this.chave = chave;
-	}
-
-	public Midia getMidia() {
-		return midia;
-	}
-
-	public void setMidia(Midia midia) {
-		this.midia = midia;
 	}
 
 	@Override

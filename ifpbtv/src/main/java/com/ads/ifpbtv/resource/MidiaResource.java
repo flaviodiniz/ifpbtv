@@ -3,8 +3,6 @@ package com.ads.ifpbtv.resource;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Midia;
-import com.ads.ifpbtv.model.request.MidiaRequest;
 import com.ads.ifpbtv.model.response.MidiaResponse;
 import com.ads.ifpbtv.model.response.UsuarioResponse;
 import com.ads.ifpbtv.service.MidiaService;
@@ -49,13 +46,13 @@ public class MidiaResource {
 	
 	//@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
-	public ResponseEntity<MidiaResponse> salvar(@RequestBody MidiaRequest midiaRequest) {	
-		return midiaService.salvar(midiaRequest);
+	public ResponseEntity<MidiaResponse> salvar(@RequestBody Midia midia) {	
+		return midiaService.salvar(midia);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<MidiaResponse> atualizar(@Valid @RequestBody MidiaRequest midiaRequest, @PathVariable Long id) {
-		return midiaService.atualizar(midiaRequest, id);
+	public ResponseEntity<MidiaResponse> atualizar(@RequestBody Midia midia, @PathVariable Long id) {
+		return midiaService.atualizar(midia, id);
 	}
 	
 	@GetMapping("/all")

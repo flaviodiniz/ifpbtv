@@ -26,7 +26,7 @@ class IfpbtvApplicationTests {
 		
 		//TESTE BUSCANDO USUARIO COM SUCESSO
 		
-		Usuario user = new Usuario(Long.parseLong("1"), "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", true, Perfil.ADMINISTRADOR);
+//		Usuario user = new Usuario(Long.parseLong("1"), "TESTE 01", "teste01@gmail.com", "abcdef123", "123456789", true, Perfil.ADMINISTRADOR);
 //		
 //		assertEquals(userService.buscarPeloCodigo(Long.parseLong("1")), user);
 		

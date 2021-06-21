@@ -23,16 +23,11 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String matricula;
-<<<<<<< HEAD
-	private boolean ativo;
-	private Perfil perfil;
-	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<Midia> midias = new ArrayList<>();
-=======
 	private String status;
 	private String perfil;
->>>>>>> 43ff5d2e32e105d63b6a315c7f37e79dc9456679
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Midia> midias = new ArrayList<>();
 	
 	public Usuario() {}
 	

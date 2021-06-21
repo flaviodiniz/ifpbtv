@@ -3,8 +3,6 @@ package com.ads.ifpbtv.resource;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Usuario;
-import com.ads.ifpbtv.model.request.UsuarioRequest;
 import com.ads.ifpbtv.model.response.UsuarioResponse;
 import com.ads.ifpbtv.service.UsuarioService;
 
@@ -50,14 +47,14 @@ public class UsuarioResource {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
-	public ResponseEntity<UsuarioResponse> salvar(@RequestBody UsuarioRequest usuarioRequest) {	
-		return usuarioService.salvar(usuarioRequest);
+	public ResponseEntity<UsuarioResponse> salvar(@RequestBody Usuario usuario) {	
+		return usuarioService.salvar(usuario);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest usuarioRequest) {
-		return usuarioService.atualizar(id, usuarioRequest);
+	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+		return usuarioService.atualizar(id, usuario);
 	}
 	
 	@GetMapping("/all")

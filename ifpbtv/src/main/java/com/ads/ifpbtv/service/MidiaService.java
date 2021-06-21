@@ -1,6 +1,5 @@
 package com.ads.ifpbtv.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -13,66 +12,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
-import com.ads.ifpbtv.model.Chaves;
 import com.ads.ifpbtv.model.Midia;
-import com.ads.ifpbtv.model.request.ChaveRequest;
-import com.ads.ifpbtv.model.request.MidiaRequest;
 import com.ads.ifpbtv.model.response.MidiaResponse;
 import com.ads.ifpbtv.repository.MidiaRepository;
 
 @Service
 public class MidiaService {
 	
-	private MidiaRepository midiaRepository;
-	private ChaveService chaveService;
-	
 	@Autowired
-	public MidiaService(MidiaRepository midiaRepository, ChaveService chaveService) {
-		super();
-		this.midiaRepository = midiaRepository;
-		this.chaveService = chaveService;
-	}
-
-
-	public Midia buscarPeloCodigo(Long id) {
-		
+	private MidiaRepository midiaRepository;
+	//private ChaveService chaveService;
+	
+	public Midia buscarPeloCodigo(Long id) {		
 		Optional<Midia> midia = midiaRepository.findById(id);	
 		return midia.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Midia.class.getName()));
 	}
-	
-	
-	public ResponseEntity<MidiaResponse> salvar(MidiaRequest midiaRequest) {
 		
+	public ResponseEntity<MidiaResponse> salvar(Midia midia) {
 		MidiaResponse midiaResponse = new MidiaResponse();
 		
 		try {
-			
-			switch (validarInformacoes(midiaRequest, null)) {
-			
+			switch (validarInformacoes(midia, null)) {
 			case 0:
 				
-				Midia midia = fromRequest(midiaRequest);
+				//Midia midia = fromRequest(midiaRequest);
 				
-				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
-					
-					midiaRepository.save(midia);
-					chaveService.salvarChaves(midia.getChaves());
-					
-					midiaResponse.setStatus(true);
-					midiaResponse.setMensagem("Mídia salva com sucesso!");
-					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
-				}
+//				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
+//					midiaRepository.save(midia);
+//					//chaveService.salvarChaves(midia.getChaves());
+//					midiaResponse.setStatus(true);
+//					midiaResponse.setMensagem("Mídia salva com sucesso!");
+//					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
+//				}
 				midiaRepository.save(midia);
-				
 				midiaResponse.setStatus(true);
 				midiaResponse.setMensagem("Mídia salva com sucesso!");
 				return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
-				
 			case 1:
 				midiaResponse.setStatus(false);
 				midiaResponse.setMensagem("Algumas informações da mídia não foram preenchidas ou estão incorretas!");
 				return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.BAD_REQUEST);
-				
 			default:
 				midiaResponse.setStatus(false);
 				midiaResponse.setMensagem("Ocorreu um erro interno no momento de salvar a mídia.");
@@ -89,30 +68,30 @@ public class MidiaService {
 	}
 	
 	
-	public ResponseEntity<MidiaResponse> atualizar(MidiaRequest midiaRequest, Long id) {
+	public ResponseEntity<MidiaResponse> atualizar(Midia midia, Long id) {
 		
 		MidiaResponse midiaResponse = new MidiaResponse();
 		
 		try {
 			
-			switch (validarInformacoes(midiaRequest, id)) {
+			switch (validarInformacoes(midia, id)) {
 			
 			case 0:
 				
-				Midia midia = fromRequest(midiaRequest);
+				//Midia midia = fromRequest(midiaRequest);
 				Midia midiaSalva = buscarPeloCodigo(id);
 				BeanUtils.copyProperties(midia, midiaSalva, "id");
 				
-				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
-					
-					midiaRepository.save(midia);
-					chaveService.salvarChaves(midia.getChaves());
-					
-					midiaResponse.setStatus(true);
-					midiaResponse.setMensagem("Mídia atualizada com sucesso!");
-					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
-
-				}
+//				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
+//					
+//					midiaRepository.save(midia);
+//					//chaveService.salvarChaves(midia.getChaves());
+//					
+//					midiaResponse.setStatus(true);
+//					midiaResponse.setMensagem("Mídia atualizada com sucesso!");
+//					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
+//
+//				}
 				midiaRepository.save(midia);
 				
 				midiaResponse.setStatus(true);
@@ -141,7 +120,7 @@ public class MidiaService {
 	
 	
 	
-	private Integer validarInformacoes(MidiaRequest midia, Long id) {
+	private Integer validarInformacoes(Midia midia, Long id) {
 		
 		int tudoOk = 0;
 		int temErro = 1;
@@ -156,7 +135,7 @@ public class MidiaService {
 				
 				if(midia.getDataCriacao() == null) return temErro;
 				
-				if(midia.getTiposDeMidia() == null) return temErro;
+				//if(midia.getTiposDeMidia() == null) return temErro;
 				
 				if(midia.getDisponibilidadeMidia() == null) return temErro;
 				
@@ -195,32 +174,32 @@ public class MidiaService {
 		midiaRepository.deleteById(id);
 	}
 	
-	private Midia fromRequest(MidiaRequest midiaRequest) {
-		
-		Midia midia = new Midia();
-		
-		midia.setTitulo(midiaRequest.getTitulo());
-		midia.setChaveEspecifica(midiaRequest.getChaveEspecifica());
-		midia.setDataCriacao(midiaRequest.getDataCriacao());
-		midia.setLink(midiaRequest.getLink());
-		midia.setDuracao(midiaRequest.getDuracao());
-		midia.setTiposDeMidia(midiaRequest.getTiposDeMidia());
-		midia.setDisponibilidadeMidia(midiaRequest.getDisponibilidadeMidia());
-		
-		if(midiaRequest.getChaves() != null && !midiaRequest.getChaves().isEmpty()) {
-			
-			List<Chaves> chaves = new ArrayList<>();
-			
-			for (ChaveRequest cr : midiaRequest.getChaves()) {
-				
-				Chaves key = new Chaves();
-				key.setChave(cr.getTitulo());
-				key.setMidia(midia);
-				
-				chaves.add(key);
-			}
-			midia.setChaves(chaves);
-		}
-		return midia;
-	}
+//	private Midia fromRequest(MidiaRequest midiaRequest) {
+//		
+//		Midia midia = new Midia();
+//		
+//		midia.setTitulo(midiaRequest.getTitulo());
+//		midia.setChaveEspecifica(midiaRequest.getChaveEspecifica());
+//		midia.setDataCriacao(midiaRequest.getDataCriacao());
+//		midia.setLink(midiaRequest.getLink());
+//		midia.setDuracao(midiaRequest.getDuracao());
+//		midia.setTiposDeMidia(midiaRequest.getTiposDeMidia());
+//		midia.setDisponibilidadeMidia(midiaRequest.getDisponibilidadeMidia());
+//		
+//		if(midiaRequest.getChaves() != null && !midiaRequest.getChaves().isEmpty()) {
+//			
+//			List<Chaves> chaves = new ArrayList<>();
+//			
+//			for (ChaveRequest cr : midiaRequest.getChaves()) {
+//				
+//				Chaves key = new Chaves();
+//				key.setChave(cr.getTitulo());
+//				key.setMidia(midia);
+//				
+//				chaves.add(key);
+//			}
+//			midia.setChaves(chaves);
+//		}
+//		return midia;
+//	}
 }

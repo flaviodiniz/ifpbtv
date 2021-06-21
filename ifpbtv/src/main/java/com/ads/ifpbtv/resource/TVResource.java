@@ -3,7 +3,6 @@ package com.ads.ifpbtv.resource;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.TV;
-import com.ads.ifpbtv.model.request.TVRequest;
 import com.ads.ifpbtv.model.response.TVResponse;
 import com.ads.ifpbtv.service.TVService;
 
@@ -50,13 +48,9 @@ public class TVResource {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
-<<<<<<< HEAD
-	public ResponseEntity<TVResponse> salvar(@Valid @RequestBody TVRequest tvRequest) {
-		return tvService.salvar(tvRequest);
-=======
 	public ResponseEntity<TVResponse> salvar(@RequestBody TV tv) {
 		return tvService.salvar(tv);
->>>>>>> 43ff5d2e32e105d63b6a315c7f37e79dc9456679
+
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -68,8 +62,8 @@ public class TVResource {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
-	public ResponseEntity<TVResponse> atualizar(@PathVariable Long id, @Valid @RequestBody TVRequest tvRequest) {
-		return tvService.atualizar(id, tvRequest);
+	public ResponseEntity<TVResponse> atualizar(@PathVariable Long id, @RequestBody TV tv) {
+		return tvService.atualizar(id, tv);
 	}
 	
 	@GetMapping("/all")

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.ads.ifpbtv.dao.UsuarioDAO;
 import com.ads.ifpbtv.exceptions.ObjectNotFoundException;
 import com.ads.ifpbtv.model.Usuario;
-import com.ads.ifpbtv.model.request.UsuarioRequest;
 import com.ads.ifpbtv.model.response.UsuarioResponse;
 import com.ads.ifpbtv.repository.UsuarioRepository;
 import com.ads.ifpbtv.utils.ValidarSenhas;
@@ -35,17 +34,17 @@ public class UsuarioService {
 		return usuario.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Usuario.class.getName()));
 	}
 	
-	public ResponseEntity<UsuarioResponse> salvar(UsuarioRequest usuarioRequest) {
+	public ResponseEntity<UsuarioResponse> salvar(Usuario usuario) {
 		
 		UsuarioResponse usuarioResponse = new UsuarioResponse();
 		
 		try {
 			
-			switch (validarInformacoes(usuarioRequest, null)) {
+			switch (validarInformacoes(usuario, null)) {
 			
 			case 0:
 				
-				Usuario usuario = fromRequest(usuarioRequest);
+				//Usuario usuario = fromRequest(usuarioRequest);
 				
 				usuarioRepository.save(usuario);	
 				usuarioResponse.setStatus(true);
@@ -89,17 +88,17 @@ public class UsuarioService {
 		}
 	}
 	
-	public ResponseEntity<UsuarioResponse> atualizar(Long id, UsuarioRequest usuarioRequest) {	
+	public ResponseEntity<UsuarioResponse> atualizar(Long id, Usuario usuario) {	
 		
 		UsuarioResponse usuarioResponse = new UsuarioResponse();
 		
 		try {
 			
-			switch (validarInformacoes(usuarioRequest, id)) {
+			switch (validarInformacoes(usuario, id)) {
 			
 			case 0:
 				
-				Usuario usuario = fromRequest(usuarioRequest);
+				//Usuario usuario = fromRequest(usuarioRequest);
 				Usuario usuarioSalvo = buscarPeloCodigo(id);
 				BeanUtils.copyProperties(usuario, usuarioSalvo, "id");
 				usuarioRepository.save(usuarioSalvo);
@@ -145,7 +144,7 @@ public class UsuarioService {
 		}
 	}
 		
-	private Integer validarInformacoes(UsuarioRequest usuarioRequest, Long id) {
+	private Integer validarInformacoes(Usuario usuario, Long id) {
 		
 		int tudoOk = 0;
 		int erroEmail = 1;
@@ -155,18 +154,18 @@ public class UsuarioService {
 		
 		try {
 			
-			if(usuarioRequest.getNome().isEmpty() || usuarioRequest.getEmail().isEmpty() || usuarioRequest.getMatricula().isEmpty() || usuarioRequest.getSenha().isEmpty() || usuarioRequest.getPerfil().equals(null)) return erroInterno;
+			if(usuario.getNome().isEmpty() || usuario.getEmail().isEmpty() || usuario.getMatricula().isEmpty() || usuario.getSenha().isEmpty() || usuario.getPerfil().equals(null)) return erroInterno;
 			
 			if(id == null) { // SALVANDO O USUARIO PELA PRIMEIRA VEZ
 				
-				Usuario aux01 = usuarioRepository.findByEmail(usuarioRequest.getEmail());
-				Usuario aux02 = usuarioRepository.findByMatricula(usuarioRequest.getMatricula());
+				Usuario aux01 = usuarioRepository.findByEmail(usuario.getEmail());
+				Usuario aux02 = usuarioRepository.findByMatricula(usuario.getMatricula());
 				
 				if(aux01 != null) return erroEmail;
 				
 				if(aux02 != null) return erroMatricula;
 				
-				if(validar.validarSenha(usuarioRequest.getSenha()) == false) return erroSenha;
+				if(validar.validarSenha(usuario.getSenha()) == false) return erroSenha;
 				
 				return tudoOk;
 				
@@ -176,34 +175,34 @@ public class UsuarioService {
 				
 				if(usuarioSalvo != null) {
 					
-					if(usuarioSalvo.getEmail().equals(usuarioRequest.getEmail()) && usuarioSalvo.getMatricula().equals(usuarioRequest.getMatricula())) {
+					if(usuarioSalvo.getEmail().equals(usuario.getEmail()) && usuarioSalvo.getMatricula().equals(usuario.getMatricula())) {
 						
 						//NAO MUDOU NEM O EMAIL E NEM A MATRICULA	
-						if(validar.validarSenha(usuarioRequest.getSenha()) == false) return erroSenha;
+						if(validar.validarSenha(usuario.getSenha()) == false) return erroSenha;
 						
 						return tudoOk;
 					} 
 					
-					if(!usuarioSalvo.getEmail().equals(usuarioRequest.getEmail()) && usuarioSalvo.getMatricula().equals(usuarioRequest.getMatricula())) {
+					if(!usuarioSalvo.getEmail().equals(usuario.getEmail()) && usuarioSalvo.getMatricula().equals(usuario.getMatricula())) {
 						
 						//MUDOU O EMAIL
-						Usuario aux = usuarioRepository.findByEmail(usuarioRequest.getEmail());
+						Usuario aux = usuarioRepository.findByEmail(usuario.getEmail());
 						
 						if(aux != null) return erroEmail;
 						
-						if(validar.validarSenha(usuarioRequest.getSenha()) == false) return erroSenha;
+						if(validar.validarSenha(usuario.getSenha()) == false) return erroSenha;
 						
 						return tudoOk;
 					}
 					
-					if(!usuarioSalvo.getMatricula().equals(usuarioRequest.getMatricula()) && usuarioSalvo.getEmail().equals(usuarioRequest.getEmail())) {
+					if(!usuarioSalvo.getMatricula().equals(usuario.getMatricula()) && usuarioSalvo.getEmail().equals(usuario.getEmail())) {
 						
 						//MUDOU A MATRICULA
-						Usuario aux = usuarioRepository.findByMatricula(usuarioRequest.getMatricula());
+						Usuario aux = usuarioRepository.findByMatricula(usuario.getMatricula());
 						
 						if(aux != null) return erroMatricula;
 						
-						if(validar.validarSenha(usuarioRequest.getSenha()) == false) return erroSenha;
+						if(validar.validarSenha(usuario.getSenha()) == false) return erroSenha;
 						
 						return tudoOk;
 					}
@@ -234,17 +233,17 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 	
-	private Usuario fromRequest(UsuarioRequest usuarioRequest) {
-		
-		Usuario usuario = new Usuario();
-		
-		usuario.setNome(usuarioRequest.getNome());
-		usuario.setEmail(usuarioRequest.getEmail());
-		usuario.setSenha(usuarioRequest.getSenha());
-		usuario.setMatricula(usuarioRequest.getMatricula());
-		usuario.setPerfil(usuarioRequest.getPerfil());
-		usuario.setAtivo(usuarioRequest.isAtivo());
-		
-		return usuario;
-	}
+//	private Usuario fromRequest(Usuario usuarioRequest) {
+//		
+//		Usuario usuario = new Usuario();
+//		
+//		usuario.setNome(usuarioRequest.getNome());
+//		usuario.setEmail(usuarioRequest.getEmail());
+//		usuario.setSenha(usuarioRequest.getSenha());
+//		usuario.setMatricula(usuarioRequest.getMatricula());
+//		usuario.setPerfil(usuarioRequest.getPerfil());
+//		usuario.setAtivo(usuarioRequest.isAtivo());
+//		
+//		return usuario;
+//	}
 }
