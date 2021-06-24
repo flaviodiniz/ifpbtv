@@ -2,7 +2,7 @@ CREATE TABLE midia (
 	id BIGINT(50) PRIMARY KEY AUTO_INCREMENT,
 	titulo VARCHAR(50) NOT NULL,
 	chaveEspecifica VARCHAR(50) NOT NULL,
-	dataCriacao DATE NOT NULL,
+	dataCriacao DATE,
 	tipoMidia VARCHAR(10) NOT NULL,
 	disponibilidadeMidia VARCHAR(10) NOT NULL,
 	link VARCHAR(80),
