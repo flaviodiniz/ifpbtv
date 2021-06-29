@@ -19,4 +19,12 @@ public interface ConsultasSqlRepository extends JpaRepository<ConsultasSQL, Long
 	@Query(value = "SELECT * FROM cmdbancodedados WHERE cmd_id = 4 and cmd_status = 'A'", nativeQuery = true)
 	ConsultasSQL getTvs();	
 	
+	@Query(value = "SELECT * FROM cmdbancodedados WHERE cmd_id = 5 and cmd_status = 'A'", nativeQuery = true)
+	ConsultasSQL getTiposMidia();
+	
+	@Query(value = "SELECT * FROM cmdbancodedados WHERE cmd_id = 6 and cmd_status = 'A'", nativeQuery = true)
+	ConsultasSQL getDisponibilidadeMidia();	
+	
+	@Query(value = "SELECT * FROM cmdbancodedados WHERE cmd_id = 7 and cmd_status = 'A'", nativeQuery = true)
+	ConsultasSQL getChaves();	
 }

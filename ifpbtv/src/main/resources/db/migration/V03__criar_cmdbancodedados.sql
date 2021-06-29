@@ -18,4 +18,7 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
   'SELECT *
  FROM tv tv
  WHERE tv.local like ? OR -1 = ?','A');
+ 
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (5, 'seleciona tipos de midia', 'SELECT * FROM ifpbtv.tipoMidia WHERE tpm_status = ''A''','A'); 
   
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (6, 'seleciona disponiblidade midia', 'SELECT * FROM ifpbtv.disponibilidadeMidia WHERE dpm_status = ''A''','A'); 

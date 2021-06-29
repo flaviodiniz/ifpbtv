@@ -1,6 +1,5 @@
 package com.ifpb.ifpbtvapi.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ifpb.ifpbtvapi.model.enums.DisponibilidadeMidia;
-import com.ifpb.ifpbtvapi.model.enums.TiposDeMidia;
-
 @Entity
 @Table(name = "midia")
 public class Midia {
@@ -32,15 +28,14 @@ public class Midia {
 	private String link;
 	private Date dataCriacao;
 	private Integer duracao;
-	private TiposDeMidia tipoMidia;
-	private DisponibilidadeMidia disponibilidadeMidia;
+	private String tipoMidia;
+	private String disponibilidadeMidia;
 	//	private File file;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "midia_chave", joinColumns = @JoinColumn(name = "midia")
 	, inverseJoinColumns = @JoinColumn(name = "chave"))
 	private List<Chaves> chaves = new ArrayList<Chaves>();
@@ -99,19 +94,19 @@ public class Midia {
 		this.duracao = duracao;
 	}
 
-	public TiposDeMidia getTipoMidia() {
+	public String getTipoMidia() {
 		return tipoMidia;
 	}
 
-	public void setTipoMidia(TiposDeMidia tipoMidia) {
+	public void setTipoMidia(String tipoMidia) {
 		this.tipoMidia = tipoMidia;
 	}
 
-	public DisponibilidadeMidia getDisponibilidadeMidia() {
+	public String getDisponibilidadeMidia() {
 		return disponibilidadeMidia;
 	}
 
-	public void setDisponibilidadeMidia(DisponibilidadeMidia disponibilidadeMidia) {
+	public void setDisponibilidadeMidia(String disponibilidadeMidia) {
 		this.disponibilidadeMidia = disponibilidadeMidia;
 	}
 

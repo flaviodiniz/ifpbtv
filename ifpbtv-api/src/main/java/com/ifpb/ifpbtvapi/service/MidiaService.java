@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ifpb.ifpbtvapi.dao.MidiaDAO;
 import com.ifpb.ifpbtvapi.exceptions.ObjectNotFoundException;
+import com.ifpb.ifpbtvapi.model.Chaves;
 import com.ifpb.ifpbtvapi.model.Midia;
 import com.ifpb.ifpbtvapi.model.response.MidiaResponse;
 import com.ifpb.ifpbtvapi.repository.MidiaRepository;
@@ -22,6 +24,9 @@ public class MidiaService {
 	@Autowired
 	private MidiaRepository midiaRepository;
 	//private ChaveService chaveService;
+	
+	@Autowired
+	private MidiaDAO midiaDAO;
 	
 	public Midia buscarPeloCodigo(Long id) {		
 		Optional<Midia> midia = midiaRepository.findById(id);	
@@ -92,6 +97,9 @@ public class MidiaService {
 					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
 
 				}
+				for(Chaves c: midia.getChaves()) {
+					System.out.println(c.getChave());
+				}
 				midiaRepository.save(midia);
 				
 				midiaResponse.setStatus(true);
@@ -133,7 +141,7 @@ public class MidiaService {
 				
 				if(midia.getChaveEspecifica() == null || midia.getChaveEspecifica().isEmpty()) return temErro;
 				
-				if(midia.getDataCriacao() == null) return temErro;
+				//if(midia.getDataCriacao() == null) return temErro;
 				
 				//if(midia.getTiposDeMidia() == null) return temErro;
 				
@@ -174,6 +182,17 @@ public class MidiaService {
 		midiaRepository.deleteById(id);
 	}
 	
+	public List<String> getTiposMidia() {	
+		return midiaDAO.getTiposMidia();
+	}
+	
+	public List<String> getDisponibilidadeMidia() {	
+		return midiaDAO.getDisponibilidadeMidia();
+	}
+	
+	public List<Chaves> getChaves() {	
+		return midiaDAO.getChaves();
+	}
 //	private Midia fromRequest(MidiaRequest midiaRequest) {
 //		
 //		Midia midia = new Midia();

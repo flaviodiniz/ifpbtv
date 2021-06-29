@@ -10,3 +10,10 @@ CREATE TABLE midia_chave (
 	FOREIGN KEY (midia) REFERENCES midia(id),
 	FOREIGN KEY (chave) REFERENCES chave(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO chave (id, chave) VALUES (1, 'Abertura');
+INSERT INTO chave (id, chave) VALUES (2, 'Detalhamento');
+INSERT INTO chave (id, chave) VALUES (3, 'Informe');
+INSERT INTO chave (id, chave) VALUES (4, 'Intervalo');
+INSERT INTO chave (id, chave) VALUES (5, 'Encerramento');
+

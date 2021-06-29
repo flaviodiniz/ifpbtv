@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifpb.ifpbtvapi.exceptions.ObjectNotFoundException;
+import com.ifpb.ifpbtvapi.model.Chaves;
 import com.ifpb.ifpbtvapi.model.Midia;
 import com.ifpb.ifpbtvapi.model.response.MidiaResponse;
 import com.ifpb.ifpbtvapi.model.response.UsuarioResponse;
@@ -44,7 +46,7 @@ public class MidiaResource {
 		}
 	}
 	
-	//@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
 	public ResponseEntity<MidiaResponse> salvar(@RequestBody Midia midia) {	
 		return midiaService.salvar(midia);
@@ -61,12 +63,27 @@ public class MidiaResource {
 		return ResponseEntity.ok().body(midias);
 	} 
 	
-//	@CrossOrigin(origins = "http://localhost:4200")
-//	@GetMapping("/perfis")
-//	public ResponseEntity<List<String>> listarPerfis() {
-//		List<String> midias = midiaService.listarPerfis();
-//		return ResponseEntity.ok().body(midias);
-//	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getTiposMidia")
+	public ResponseEntity<List<String>> getTiposMidia() {
+		List<String> usuarios = midiaService.getTiposMidia();
+		return ResponseEntity.ok().body(usuarios);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getDisponibilidadeMidia")
+	public ResponseEntity<List<String>> getDisponibilidadeMidia() {
+		List<String> usuarios = midiaService.getDisponibilidadeMidia();
+		return ResponseEntity.ok().body(usuarios);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getChaves")
+	public ResponseEntity<List<Chaves>> getChaves() {
+		List<Chaves> usuarios = midiaService.getChaves();
+		return ResponseEntity.ok().body(usuarios);
+	}
+	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
