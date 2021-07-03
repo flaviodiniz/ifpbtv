@@ -59,6 +59,7 @@ public class MidiaResource {
 		return ResponseEntity.ok().body(midias);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<MidiaResponse> atualizar(@RequestBody Midia midia, @PathVariable Long id) {
 		return midiaService.atualizar(midia, id);
@@ -91,7 +92,7 @@ public class MidiaResource {
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {
