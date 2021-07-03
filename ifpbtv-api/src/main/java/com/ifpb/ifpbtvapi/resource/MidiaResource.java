@@ -52,6 +52,13 @@ public class MidiaResource {
 		return midiaService.salvar(midia);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/{titulo}/{chave}/{tipo}")
+	public ResponseEntity<List<Midia>> getUsuarios(@PathVariable String titulo, @PathVariable String chave, @PathVariable String tipo) {
+		List<Midia> midias = midiaService.getMidias(titulo, chave, tipo);
+		return ResponseEntity.ok().body(midias);
+	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<MidiaResponse> atualizar(@RequestBody Midia midia, @PathVariable Long id) {
 		return midiaService.atualizar(midia, id);

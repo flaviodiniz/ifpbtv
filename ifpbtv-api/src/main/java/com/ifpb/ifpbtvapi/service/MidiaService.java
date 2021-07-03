@@ -23,7 +23,7 @@ public class MidiaService {
 	
 	@Autowired
 	private MidiaRepository midiaRepository;
-	//private ChaveService chaveService;
+	private ChaveService chaveService;
 	
 	@Autowired
 	private MidiaDAO midiaDAO;
@@ -90,7 +90,7 @@ public class MidiaService {
 				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
 					
 					midiaRepository.save(midia);
-					//chaveService.salvarChaves(midia.getChaves());
+					chaveService.salvarChaves(midia.getChaves());
 					
 					midiaResponse.setStatus(true);
 					midiaResponse.setMensagem("Mídia atualizada com sucesso!");
@@ -221,4 +221,8 @@ public class MidiaService {
 //		}
 //		return midia;
 //	}
+	
+	public List<Midia> getMidias(String titulo, String chave, String tipo) {
+		return midiaDAO.getMidias(titulo, chave, tipo);
+	}
 }
