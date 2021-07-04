@@ -31,6 +31,7 @@ public class MidiaResource {
 	@Autowired
 	private MidiaService midiaService;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarPeloCodigo(@PathVariable Long id) {
 		try {	

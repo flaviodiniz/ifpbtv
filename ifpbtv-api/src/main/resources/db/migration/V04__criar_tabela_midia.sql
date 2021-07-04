@@ -37,3 +37,7 @@ CREATE TABLE disponibilidadeMidia (
 
 INSERT INTO disponibilidadeMidia (dpm_id, dpm_descricao, dpm_status) VALUES (1, 'Privado', 'A');
 INSERT INTO disponibilidadeMidia (dpm_id, dpm_descricao, dpm_status) VALUES (2, 'Público', 'A');
+
+USE ifpbtv;
+set global max_allowed_packet = 3 * 1024 * 1024 * 10; # 30M to
+show VARIABLES like '% max_allowed_packet%';
