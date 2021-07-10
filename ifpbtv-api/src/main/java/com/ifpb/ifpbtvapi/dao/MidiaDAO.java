@@ -137,4 +137,20 @@ public class MidiaDAO {
 		}
 		return lista;
 	}
+	
+	public boolean deletaUploadDeMidia(Long midia) {
+		System.out.println(midia);
+		String sql = consultaSqlRepository.deletaUploadMidia().getSql();
+		ParamDAO[] params = new ParamDAO[1];
+		params[0] = new ParamDAO(midia, Types.BIGINT);
+		try {
+			int rs = executeQuery.executarConsultaUpdateOrInsert(sql, params);
+			if(rs != 0) {		
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

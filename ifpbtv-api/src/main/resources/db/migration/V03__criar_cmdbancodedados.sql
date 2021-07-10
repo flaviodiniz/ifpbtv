@@ -31,3 +31,6 @@ INNER JOIN usuario usu on usu.id = mid.usuario_id
 WHERE mid.titulo like ? OR -1 = ? 
 AND (mid.chave_especifica like ? OR -1 = ?)
 AND (mid.tipo_midia like ? OR -1 = ?)','A');
+
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (9, 'deleta uploads', 
+'DELETE FROM upload WHERE midia_id = ?','A');

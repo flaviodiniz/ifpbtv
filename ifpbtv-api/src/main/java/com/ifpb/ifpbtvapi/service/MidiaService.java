@@ -179,6 +179,7 @@ public class MidiaService {
 	}
 	
 	public void excluir(Long id) {
+		midiaDAO.deletaUploadDeMidia(id);
 		midiaRepository.deleteById(id);
 	}
 	
