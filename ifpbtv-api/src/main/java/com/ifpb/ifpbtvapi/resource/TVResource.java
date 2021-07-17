@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class TVResource {
 	@Autowired
 	private TVService tvService;	
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarTvPeloCodigo(@PathVariable Long id) {
 		try {
@@ -46,21 +47,22 @@ public class TVResource {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
 	public ResponseEntity<TVResponse> salvar(@RequestBody TV tv) {
 		return tvService.salvar(tv);
 
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/all/{local}")
 	public ResponseEntity<List<TV>> getTvs(@PathVariable String local) {
 		List<TV> tvs = tvService.getTvs(local);
 		return ResponseEntity.ok().body(tvs);
 	}	
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<TVResponse> atualizar(@PathVariable Long id, @RequestBody TV tv) {
 		return tvService.atualizar(id, tv);
@@ -72,14 +74,14 @@ public class TVResource {
 		return ResponseEntity.ok().body(tvs);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/marcas")
 	public ResponseEntity<List<String>> listarMarcas() {
 		List<String> marcas = tvService.listarMarcas();
 		return ResponseEntity.ok().body(marcas);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> excluir(@PathVariable Long id) {
 		try {

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,10 +29,15 @@ public class Usuario {
 	private String status;
 	private String perfil;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "midia_usuario", joinColumns = @JoinColumn(name = "usuario")
 	, inverseJoinColumns = @JoinColumn(name = "midia"))
 	private List<Midia> midias = new ArrayList<Midia>();
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario")
+		, inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	private List<Permissao> permissoes;
 	
 	public Usuario() {}
 	
@@ -112,6 +118,14 @@ public class Usuario {
 
 	public void setMidias(List<Midia> midias) {
 		this.midias = midias;
+	}
+	
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 	@Override

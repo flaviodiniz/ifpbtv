@@ -19,9 +19,9 @@ public class ChaveService {
 		if(chaves != null && !chaves.isEmpty()) chavesRepository.saveAll(chaves);
 	}
 	
-	public List<Chaves> listarChaves(Long idMidia) {
-		
-		List<Chaves> chaves = chavesRepository.buscarChavesPorMidia(idMidia) != null ? chavesRepository.buscarChavesPorMidia(idMidia) : null;
-		return chaves;
-	}
+//	public List<Chaves> listarChaves(Long idMidia) {
+//		
+//		List<Chaves> chaves = chavesRepository.buscarChavesPorMidia(idMidia) != null ? chavesRepository.buscarChavesPorMidia(idMidia) : null;
+//		return chaves;
+//	}
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarPeloCodigo(@PathVariable Long id) {
 		try {	
@@ -45,13 +46,15 @@ public class UsuarioResource {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
 	public ResponseEntity<UsuarioResponse> salvar(@RequestBody Usuario usuario) {	
 		return usuarioService.salvar(usuario);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
 		return usuarioService.atualizar(id, usuario);
@@ -63,21 +66,24 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(usuarios);
 	} 
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/perfis")
 	public ResponseEntity<List<String>> listarPerfis() {
 		List<String> usuarios = usuarioService.listarPerfis();
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{nome}/{matricula}/{perfil}")
 	public ResponseEntity<List<Usuario>> getUsuarios(@PathVariable String nome, @PathVariable String matricula, @PathVariable String perfil) {
 		List<Usuario> usuarios = usuarioService.getUsuarios(nome, matricula, perfil);
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ifpb.ifpbtvapi.dao.UsuarioDAO;
@@ -26,6 +27,8 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	private BCryptPasswordEncoder bcpe;
 	
 	private ValidarSenhas validar = new ValidarSenhas();
 		
@@ -45,6 +48,8 @@ public class UsuarioService {
 			case 0:
 				
 				//Usuario usuario = fromRequest(usuarioRequest);
+				
+				usuario.setSenha(bcpe.encode(usuario.getSenha()));
 				
 				usuarioRepository.save(usuario);	
 				usuarioResponse.setStatus(true);
@@ -158,7 +163,7 @@ public class UsuarioService {
 			
 			if(id == null) { // SALVANDO O USUARIO PELA PRIMEIRA VEZ
 				
-				Usuario aux01 = usuarioRepository.findByEmail(usuario.getEmail());
+				Optional<Usuario> aux01 = (Optional<Usuario>) usuarioRepository.findByEmail(usuario.getEmail());
 				Usuario aux02 = usuarioRepository.findByMatricula(usuario.getMatricula());
 				
 				if(aux01 != null) return erroEmail;
@@ -186,7 +191,7 @@ public class UsuarioService {
 					if(!usuarioSalvo.getEmail().equals(usuario.getEmail()) && usuarioSalvo.getMatricula().equals(usuario.getMatricula())) {
 						
 						//MUDOU O EMAIL
-						Usuario aux = usuarioRepository.findByEmail(usuario.getEmail());
+						Optional<Usuario> aux = usuarioRepository.findByEmail(usuario.getEmail());
 						
 						if(aux != null) return erroEmail;
 						

@@ -31,7 +31,7 @@ public class MidiaResource {
 	@Autowired
 	private MidiaService midiaService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscarPeloCodigo(@PathVariable Long id) {
 		try {	
@@ -47,20 +47,20 @@ public class MidiaResource {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
 	public ResponseEntity<MidiaResponse> salvar(@RequestBody Midia midia) {	
 		return midiaService.salvar(midia);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{titulo}/{chave}/{tipo}")
 	public ResponseEntity<List<Midia>> getUsuarios(@PathVariable String titulo, @PathVariable String chave, @PathVariable String tipo) {
 		List<Midia> midias = midiaService.getMidias(titulo, chave, tipo);
 		return ResponseEntity.ok().body(midias);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<MidiaResponse> atualizar(@RequestBody Midia midia, @PathVariable Long id) {
 		return midiaService.atualizar(midia, id);
@@ -72,28 +72,28 @@ public class MidiaResource {
 		return ResponseEntity.ok().body(midias);
 	} 
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getTiposMidia")
 	public ResponseEntity<List<String>> getTiposMidia() {
 		List<String> usuarios = midiaService.getTiposMidia();
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getDisponibilidadeMidia")
 	public ResponseEntity<List<String>> getDisponibilidadeMidia() {
 		List<String> usuarios = midiaService.getDisponibilidadeMidia();
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getChaves")
 	public ResponseEntity<List<Chaves>> getChaves() {
 		List<Chaves> usuarios = midiaService.getChaves();
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {
