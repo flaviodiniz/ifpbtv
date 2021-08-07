@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -29,10 +31,10 @@ public class Usuario {
 	private String status;
 	private String perfil;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "midia_usuario", joinColumns = @JoinColumn(name = "usuario")
-	, inverseJoinColumns = @JoinColumn(name = "midia"))
-	private List<Midia> midias = new ArrayList<Midia>();
+//	@OneToMany(fetch = FetchType.LAZY)  
+//	@JoinTable(name = "midia_usuario", joinColumns = @JoinColumn(name = "usuario")
+//	, inverseJoinColumns = @JoinColumn(name = "midia"))
+//	private List<Midia> midias = new ArrayList<Midia>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario")
@@ -112,13 +114,13 @@ public class Usuario {
 		this.perfil = perfil;
 	}
 			
-	public List<Midia> getMidias() {
-		return midias;
-	}
-
-	public void setMidias(List<Midia> midias) {
-		this.midias = midias;
-	}
+//	public List<Midia> getMidias() {
+//		return midias;
+//	}
+//
+//	public void setMidias(List<Midia> midias) {
+//		this.midias = midias;
+//	}
 	
 	public List<Permissao> getPermissoes() {
 		return permissoes;

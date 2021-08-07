@@ -115,7 +115,7 @@ public class TVService {
 					
 					TV aux = tvRepository.findByChave(tv.getChave());
 					
-					if(aux != null) return erroChave;
+				//	if(aux != null) return erroChave;
 					
 					return tudoOk;
 				}

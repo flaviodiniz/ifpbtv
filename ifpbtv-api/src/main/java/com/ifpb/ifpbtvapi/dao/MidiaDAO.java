@@ -126,8 +126,8 @@ public class MidiaDAO {
 					midia.setId(Long.parseLong(rs.getString("id")));
 					midia.setTitulo(rs.getString("titulo"));
 					midia.setLink(rs.getString("link"));
-					midia.setChaveEspecifica(rs.getString("chave_especifica"));
-					midia.setTipoMidia(rs.getString("tipo_midia"));
+					midia.setChaveEspecifica(rs.getString("chaveEspecifica"));
+					midia.setTipoMidia(rs.getString("tipoMidia"));
 					midia.setUsuario(usuario);
 					lista.add(midia);
 				}

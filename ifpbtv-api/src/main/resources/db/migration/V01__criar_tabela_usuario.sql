@@ -2,10 +2,10 @@ CREATE TABLE usuario (
 	id BIGINT(50) PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50) NOT NULL,
 	email VARCHAR(30) NOT NULL,
-	matricula VARCHAR(50) NOT NULL,
-	perfil VARCHAR(50) NOT NULL,
 	senha VARCHAR(500) NOT NULL,
-	status VARCHAR(50) NOT NULL
+	matricula VARCHAR(50) NOT NULL,
+	status VARCHAR(50) NOT NULL,
+	perfil VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE usuario ADD UNIQUE (email);
@@ -30,9 +30,8 @@ CREATE TABLE Status (
 INSERT INTO Status (sts_id, sts_descricao, sts_status) VALUES (1, 'Ativo', 'A');
 INSERT INTO Status (sts_id, sts_descricao, sts_status) VALUES (2, 'Inativo', 'A');
 
-INSERT INTO usuario (id, nome, email, matricula, perfil, senha, status)
-values(1, 'Tiago', 'tiago01@gmail.com', 202125022021, 'Administrador',
-'$2a$10$sAMcwG0c.VbE16iU2J9B1ucXVywAsCeM4W5T35VmP1IjXNqJAVeJ2', 'Ativo'); 
+INSERT INTO usuario (id, nome, email, senha, matricula, status, perfil)
+		values(1, 'Tiago', 'tiago01@gmail.com', '$2a$10$WtVaYP7t2EOf.OIdltYfF.Ay/fYKKnLfPD/nzyYe4oWZpQ4FTk8KS', 202125022021, 'Ativo', 'Administrador'); 
 
 CREATE TABLE permissao (
 	id BIGINT(20) PRIMARY KEY,

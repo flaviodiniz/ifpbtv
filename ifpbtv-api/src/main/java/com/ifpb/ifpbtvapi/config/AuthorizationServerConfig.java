@@ -32,7 +32,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		clients.inMemory().withClient("ifpbtv").secret(bCryptPasswordEncoder.encode("ifpbtv2021")).scopes("read", "write")
-				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(1800)
+				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(3600)
 				.refreshTokenValiditySeconds(3600 * 24);
 	}
 	

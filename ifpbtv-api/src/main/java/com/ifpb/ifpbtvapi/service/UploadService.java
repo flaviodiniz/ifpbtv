@@ -21,12 +21,12 @@ public class UploadService {
 	@Autowired
 	private MidiaDAO midiaDAO;
 	
-	public Upload salvar(MultipartFile multipepartFile, Long midia) {
+	public Upload salvar(MultipartFile file, Long midia) {
 		try {
 			Midia midia2 = new Midia();
 			midia2.setId(midia);
 			deletaUpload(midia);
-			InputStream initialStream = multipepartFile.getInputStream();
+			InputStream initialStream =  file.getInputStream();
 			byte[] buffer = new byte[initialStream.available()];
 			initialStream.read(buffer);
 			Upload upload = new Upload();

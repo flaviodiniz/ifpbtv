@@ -28,6 +28,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	
+	@Autowired
 	private BCryptPasswordEncoder bcpe;
 	
 	private ValidarSenhas validar = new ValidarSenhas();
@@ -166,7 +167,9 @@ public class UsuarioService {
 				Optional<Usuario> aux01 = (Optional<Usuario>) usuarioRepository.findByEmail(usuario.getEmail());
 				Usuario aux02 = usuarioRepository.findByMatricula(usuario.getMatricula());
 				
-				if(aux01 != null) return erroEmail;
+				System.out.println(aux01);
+				
+				if(aux01.isPresent()) return erroEmail;
 				
 				if(aux02 != null) return erroMatricula;
 				

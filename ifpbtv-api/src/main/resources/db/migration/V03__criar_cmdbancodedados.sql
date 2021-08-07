@@ -24,13 +24,21 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (6, 'seleciona disponiblidade midia', 'SELECT * FROM ifpbtv.disponibilidadeMidia WHERE dpm_status = ''A''','A');
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (7, 'seleciona chaves', 'SELECT * FROM ifpbtv.chave','A');
-  
+
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (8, 'seleciona midias', 
 'SELECT mid.*, usu.nome FROM midia mid 
 INNER JOIN usuario usu on usu.id = mid.usuario_id
 WHERE mid.titulo like ? OR -1 = ? 
-AND (mid.chave_especifica like ? OR -1 = ?)
-AND (mid.tipo_midia like ? OR -1 = ?)','A');
+AND (mid.chaveEspecifica like ? OR -1 = ?)
+AND (mid.tipoMidia like ? OR -1 = ?)','A');
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (9, 'deleta uploads', 
 'DELETE FROM upload WHERE midia_id = ?','A');
+
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (10, 'seleciona tipos de programação', 'SELECT * FROM tipoprogramacao','A');
+
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (11, 'seleciona programações', 'SELECT * FROM programacao prg
+where 
+prg.titulo like ? or -1 = ?
+and
+(prg.tipoProgramacao like ? or -1 = ?)','A');
