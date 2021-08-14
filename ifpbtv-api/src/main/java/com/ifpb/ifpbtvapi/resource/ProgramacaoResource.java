@@ -64,10 +64,11 @@ public class ProgramacaoResource {
 		return ResponseEntity.ok().body(programacoes);
 	} 
 	
-	@GetMapping("/listar/{titulo}/{tipoProgramacao}")
-	public ResponseEntity<List<Programacao>> listarProgramacoes(@PathVariable String titulo, @PathVariable String tipoProgramacao) {
+	@GetMapping("/listar/{titulo}/{tipoProgramacao}/{usuario}")
+	public ResponseEntity<List<Programacao>> listarProgramacoes(@PathVariable String titulo, @PathVariable String tipoProgramacao,
+			@PathVariable Long usuario) {
 		System.out.println(titulo);
-		List<Programacao> programacoes = programacaoService.listarProgramacoes(titulo, tipoProgramacao);
+		List<Programacao> programacoes = programacaoService.listarProgramacoes(titulo, tipoProgramacao, usuario);
 		return ResponseEntity.ok().body(programacoes);
 	} 
 	

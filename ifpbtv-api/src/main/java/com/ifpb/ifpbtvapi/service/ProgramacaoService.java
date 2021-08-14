@@ -152,8 +152,8 @@ public class ProgramacaoService {
 		return programacaoRepository.findAll();
 	}
 	
-	public List<Programacao> listarProgramacoes(String titulo, String tipoProgramacao) {
-		return programacaoDAO.getProgramacoes(titulo, tipoProgramacao);
+	public List<Programacao> listarProgramacoes(String titulo, String tipoProgramacao, Long usuario) {
+		return programacaoDAO.getProgramacoes(titulo, tipoProgramacao, usuario);
 	}
 	
 	public List<Programacao> getProgramacoesGrade(Long idGrade) {

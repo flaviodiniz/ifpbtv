@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ifpb.ifpbtvapi.model.Midia;
 import com.ifpb.ifpbtvapi.model.Programacao;
 import com.ifpb.ifpbtvapi.repository.ConsultasSqlRepository;
 import com.ifpb.ifpbtvapi.repository.factory.ExecuteQuery;
@@ -41,26 +40,28 @@ public class ProgramacaoDAO {
 		return lista;
 	}
 	
-	public List<Programacao> getProgramacoes(String titulo, String tipoProgramacao) {
+	public List<Programacao> getProgramacoes(String titulo, String tipoProgramacao, Long usuario) {
 		String sql = consultaSqlRepository.getProgramacoes().getSql();
 		ArrayList<Programacao> lista = null;
-		ParamDAO[] params = new ParamDAO[4];
+		ParamDAO[] params = new ParamDAO[5];
 		String title = "%" + titulo + "%";
 		String programationType = "%" + tipoProgramacao + "%";
+		
+		params[0] = new ParamDAO(usuario, Types.BIGINT);
 		if(!titulo.equals("undefined")) {
-			params[0] = new ParamDAO(title, Types.VARCHAR);
 			params[1] = new ParamDAO(title, Types.VARCHAR);
+			params[2] = new ParamDAO(title, Types.VARCHAR);
 		} else {
-			params[0] = new ParamDAO("-1", Types.VARCHAR);
 			params[1] = new ParamDAO("-1", Types.VARCHAR);
+			params[2] = new ParamDAO("-1", Types.VARCHAR);
 		}
 		
 		if(!tipoProgramacao.equals("undefined")) {
-			params[2] = new ParamDAO("%" + programationType + "%", Types.VARCHAR);
 			params[3] = new ParamDAO("%" + programationType + "%", Types.VARCHAR);
+			params[4] = new ParamDAO("%" + programationType + "%", Types.VARCHAR);
 		} else {
-			params[2] = new ParamDAO("-1", Types.VARCHAR);
 			params[3] = new ParamDAO("-1", Types.VARCHAR);
+			params[4] = new ParamDAO("-1", Types.VARCHAR);
 		}
 		try {
 			ResultSet rs = executeQuery.executarConsultaSelect(sql, params);

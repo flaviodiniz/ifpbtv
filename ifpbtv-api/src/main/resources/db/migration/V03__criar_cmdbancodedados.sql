@@ -40,10 +40,9 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (11, 'seleciona programações', 
 'SELECT * FROM programacao prg
-where 
-prg.titulo like ? or -1 = ?
-and
-(prg.tipoProgramacao like ? or -1 = ?)','A');
+where prg.usuario = ?
+and (prg.titulo like ? or -1 = ?)
+and (prg.tipoProgramacao like ? or -1 = ?)','A');
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (12, 'seleciona grade de uma tv', 
 'SELECT grp.* FROM grade_programacao grp
