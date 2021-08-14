@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifpb.ifpbtvapi.exceptions.ObjectNotFoundException;
+import com.ifpb.ifpbtvapi.model.GradeProgramacao;
 import com.ifpb.ifpbtvapi.model.TV;
 import com.ifpb.ifpbtvapi.model.response.TVResponse;
 import com.ifpb.ifpbtvapi.service.TVService;
@@ -72,6 +73,12 @@ public class TVResource {
 	public ResponseEntity<List<TV>> listarTVs() {	
 		List<TV> tvs = tvService.listarTVs();	
 		return ResponseEntity.ok().body(tvs);
+	}
+	
+	@GetMapping("/grade/{id}")
+	public ResponseEntity<GradeProgramacao> getGradeTv(@PathVariable Long id) {	
+		GradeProgramacao grade = tvService.getGradeTv(id);	
+		return ResponseEntity.ok().body(grade);
 	}
 	
 	//@CrossOrigin(origins = "http://localhost:4200")

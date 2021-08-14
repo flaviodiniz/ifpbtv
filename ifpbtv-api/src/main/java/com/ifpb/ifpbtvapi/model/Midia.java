@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,14 +34,13 @@ public class Midia {
 	@ManyToOne
 	private Usuario usuario;
 	
+	//@ManyToMany
+	//private List<Programacao> programacao;
+	
 	@ManyToMany
 	@JoinTable(name = "midia_chave", joinColumns = @JoinColumn(name = "midia")
 	, inverseJoinColumns = @JoinColumn(name = "chave"))
 	private List<Chaves> chaves = new ArrayList<Chaves>();
-	
-//	@ManyToMany
-//	@JoinTable(name = "TB_PLAYLIST_MIDIA", joinColumns = @JoinColumn(name = "midia_id"), inverseJoinColumns = @JoinColumn(name = "playlist_id"))
-//	private List<Playlist> playlists = new ArrayList<>();
 	
 	public Midia() {}
 
@@ -133,6 +131,14 @@ public class Midia {
 	public void setChaves(List<Chaves> chaves) {
 		this.chaves = chaves;
 	}
+
+//	public List<Programacao> getProgramacao() {
+//		return programacao;
+//	}
+//
+//	public void setProgramacao(List<Programacao> programacao) {
+//		this.programacao = programacao;
+//	}
 
 	@Override
 	public int hashCode() {

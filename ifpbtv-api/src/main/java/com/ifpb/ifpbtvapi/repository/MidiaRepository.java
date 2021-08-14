@@ -11,4 +11,5 @@ public interface MidiaRepository extends JpaRepository<Midia, Long> {
 	
 	@Transactional(readOnly = true)
 	public Midia findByChaveEspecifica(String chave);
+	
 }

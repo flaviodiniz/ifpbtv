@@ -28,7 +28,8 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (8, 'seleciona midias', 
 'SELECT mid.*, usu.nome FROM midia mid 
 INNER JOIN usuario usu on usu.id = mid.usuario_id
-WHERE mid.titulo like ? OR -1 = ? 
+WHERE mid.disponibilidadeMidia = ''Público'' OR usu.id = ?
+AND (mid.titulo like ? OR -1 = ?)
 AND (mid.chaveEspecifica like ? OR -1 = ?)
 AND (mid.tipoMidia like ? OR -1 = ?)','A');
 
@@ -37,8 +38,17 @@ INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES 
 
 INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (10, 'seleciona tipos de programação', 'SELECT * FROM tipoprogramacao','A');
 
-INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (11, 'seleciona programações', 'SELECT * FROM programacao prg
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (11, 'seleciona programações', 
+'SELECT * FROM programacao prg
 where 
 prg.titulo like ? or -1 = ?
 and
 (prg.tipoProgramacao like ? or -1 = ?)','A');
+
+INSERT INTO cmdbancodedados (cmd_id, cmd_descricao, cmd_sql, cmd_status) VALUES (12, 'seleciona grade de uma tv', 
+'SELECT grp.* FROM grade_programacao grp
+INNER JOIN tv tv ON tv.gradeProgramacao = grp.id
+WHERE tv.gradeProgramacao = ?','A');
+
+
+

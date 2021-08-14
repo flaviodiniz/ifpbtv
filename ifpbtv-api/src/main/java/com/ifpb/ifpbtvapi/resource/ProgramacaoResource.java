@@ -1,8 +1,12 @@
 package com.ifpb.ifpbtvapi.resource;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -67,6 +71,12 @@ public class ProgramacaoResource {
 		return ResponseEntity.ok().body(programacoes);
 	} 
 	
+	@GetMapping("/listarProgramacoesGrade/{idGrade}")
+	public ResponseEntity<List<Programacao>> listarProgramacoes(@PathVariable Long idGrade) {
+		List<Programacao> programacoes = programacaoService.getProgramacoesGrade(idGrade);
+		return ResponseEntity.ok().body(programacoes);
+	} 
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {
@@ -87,4 +97,29 @@ public class ProgramacaoResource {
 		List<String> tipos = programacaoService.getTipoProgramacoes();
 		return ResponseEntity.ok().body(tipos);
 	}
+	
+	@GetMapping("/listar/all/{id}")
+	public ResponseEntity<List<Object>> getProgramacaoUpload(@PathVariable Long id) {
+		List<Object> programacoes = programacaoService.getProgramacaoUpload(id);
+		return ResponseEntity.ok().body(programacoes);
+	} 
+	
+	public static byte[] decompressBytes(byte[] data) {
+		Inflater inflater = new Inflater();
+		inflater.setInput(data);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+		byte[] buffer = new byte[1024];
+		try {
+			while (!inflater.finished()) {
+				int count = inflater.inflate(buffer);
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+		} catch (IOException ioe) {
+		} catch (DataFormatException e) {
+		}
+		return outputStream.toByteArray();
+	}
+	
+	//1048576
 }

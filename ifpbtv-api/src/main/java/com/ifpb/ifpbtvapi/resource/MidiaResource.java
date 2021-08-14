@@ -54,9 +54,9 @@ public class MidiaResource {
 	}
 	
 	//@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/{titulo}/{chave}/{tipo}")
-	public ResponseEntity<List<Midia>> getUsuarios(@PathVariable String titulo, @PathVariable String chave, @PathVariable String tipo) {
-		List<Midia> midias = midiaService.getMidias(titulo, chave, tipo);
+	@GetMapping("/{titulo}/{chave}/{tipo}/{usuario}")
+	public ResponseEntity<List<Midia>> getUsuarios(@PathVariable String titulo, @PathVariable String chave, @PathVariable String tipo, @PathVariable Long usuario) {
+		List<Midia> midias = midiaService.getMidias(titulo, chave, tipo, usuario);
 		return ResponseEntity.ok().body(midias);
 	}
 	

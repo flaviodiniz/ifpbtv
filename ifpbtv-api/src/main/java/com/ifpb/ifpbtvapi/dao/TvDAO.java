@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ifpb.ifpbtvapi.model.GradeProgramacao;
 import com.ifpb.ifpbtvapi.model.TV;
 import com.ifpb.ifpbtvapi.repository.ConsultasSqlRepository;
 import com.ifpb.ifpbtvapi.repository.factory.ExecuteQuery;
@@ -67,6 +68,7 @@ public class TvDAO {
 					tv.setMarca(rs.getString("marca"));
 					tv.setChave(rs.getString("chave"));					
 					tv.setDisponivel(rs.getString("disponivel"));
+					tv.setGradeProgramacao(rs.getLong("gradeProgramacao"));
 					String on = rs.getString("online");
 					if (on.equals("false")) {
 						tv.setOnline(false);
@@ -80,6 +82,31 @@ public class TvDAO {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+	
+	public GradeProgramacao getGradeTv(Long id) {
+		String sql = consultaSqlRepository.getGradeTv().getSql();
+		GradeProgramacao grade = null;
+		ParamDAO[] params = new ParamDAO[1];
+		params[0] = new ParamDAO(id, Types.BIGINT);
+		
+		try {
+			ResultSet rs = executeQuery.executarConsultaSelect(sql, params);
+			if(rs != null) {
+				while(rs.next()){	
+					grade = new GradeProgramacao();
+					grade.setId(rs.getLong("id"));
+					grade.setExibindo(rs.getBoolean("exibindo"));
+					grade.setAtiva(rs.getBoolean("ativa"));
+					grade.setTitulo(rs.getString("titulo"));
+					return grade;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return grade; 
 	}
 	
 

@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tv")
@@ -19,6 +21,7 @@ public class TV {
 	private String chave;
 	private String disponivel;
 	private boolean online;
+	private Long gradeProgramacao;
 	
 	public TV() {}
 
@@ -90,6 +93,14 @@ public class TV {
 
 	public void setDisponivel(String disponivel) {
 		this.disponivel = disponivel;
+	}
+	
+	public Long getGradeProgramacao() {
+		return gradeProgramacao;
+	}
+
+	public void setGradeProgramacao(long gradeProgramacao) {
+		this.gradeProgramacao = gradeProgramacao;
 	}
 
 	@Override

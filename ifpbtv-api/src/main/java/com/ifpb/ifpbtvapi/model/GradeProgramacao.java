@@ -1,5 +1,6 @@
 package com.ifpb.ifpbtvapi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,7 +20,6 @@ public class GradeProgramacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;
 	
 	private String titulo;
@@ -28,11 +28,11 @@ public class GradeProgramacao {
 	
 	@ManyToMany
 	@JoinTable(name = "grade_de_programacao", joinColumns = @JoinColumn(name = "grade"),inverseJoinColumns = @JoinColumn(name = "programacao"))
-	private List<Programacao> programacoes;
+	private List<Programacao> programacoes = new ArrayList<Programacao>();
 	
-	@ManyToMany
-	@JoinTable(name = "grade_tv", joinColumns = @JoinColumn(name = "grade"),inverseJoinColumns = @JoinColumn(name = "tv"))
-	private List<TV> tvs;
+//	@ManyToMany
+//	@JoinTable(name = "grade_tv", joinColumns = @JoinColumn(name = "grade"),inverseJoinColumns = @JoinColumn(name = "tv"))
+//	private List<TV> tvs;
 	
 	public GradeProgramacao() {}
 
@@ -76,13 +76,13 @@ public class GradeProgramacao {
 		this.programacoes = programacoes;
 	}
 
-	public List<TV> getTvs() {
-		return tvs;
-	}
-
-	public void setTvs(List<TV> tvs) {
-		this.tvs = tvs;
-	}
+//	public List<TV> getTvs() {
+//		return tvs;
+//	}
+//
+//	public void setTvs(List<TV> tvs) {
+//		this.tvs = tvs;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -107,5 +107,9 @@ public class GradeProgramacao {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	public void addProgramacao(Programacao programacao) {
+		this.programacoes.add(programacao);
 	}
 }

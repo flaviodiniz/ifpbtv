@@ -83,34 +83,36 @@ public class MidiaDAO {
 		return lista;
 	}
 	
-	public List<Midia> getMidias(String titulo, String chave, String tipo) {
+	public List<Midia> getMidias(String titulo, String chave, String tipo, Long usu) {
 		String sql = consultaSqlRepository.getMidias().getSql();
 		ArrayList<Midia> lista = null;
-		ParamDAO[] params = new ParamDAO[6];
+		ParamDAO[] params = new ParamDAO[7];
 		String nome2 = "%" + titulo + "%";
 		String perfil = "%" + tipo + "%";
+		
+		params[0] = new ParamDAO(usu, Types.BIGINT);
 		if(!titulo.equals("undefined")) {
-			params[0] = new ParamDAO(nome2, Types.VARCHAR);
 			params[1] = new ParamDAO(nome2, Types.VARCHAR);
+			params[2] = new ParamDAO(nome2, Types.VARCHAR);
 		} else {
-			params[0] = new ParamDAO("-1", Types.VARCHAR);
 			params[1] = new ParamDAO("-1", Types.VARCHAR);
+			params[2] = new ParamDAO("-1", Types.VARCHAR);
 		}
 		
 		if(!chave.equals("undefined")) {
-			params[2] = new ParamDAO("%" + chave + "%", Types.VARCHAR);
 			params[3] = new ParamDAO("%" + chave + "%", Types.VARCHAR);
+			params[4] = new ParamDAO("%" + chave + "%", Types.VARCHAR);
 		} else {
-			params[2] = new ParamDAO("-1", Types.VARCHAR);
 			params[3] = new ParamDAO("-1", Types.VARCHAR);
+			params[4] = new ParamDAO("-1", Types.VARCHAR);
 		}
 		
 		if(!tipo.equals("undefined")) {
-			params[4] = new ParamDAO(perfil, Types.VARCHAR);
 			params[5] = new ParamDAO(perfil, Types.VARCHAR);
+			params[6] = new ParamDAO(perfil, Types.VARCHAR);
 		} else {
-			params[4] = new ParamDAO("-1", Types.VARCHAR);
 			params[5] = new ParamDAO("-1", Types.VARCHAR);
+			params[6] = new ParamDAO("-1", Types.VARCHAR);
 		}
 		
 		try {

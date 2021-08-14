@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.ifpb.ifpbtvapi.dao.UsuarioDAO;
 import com.ifpb.ifpbtvapi.exceptions.ObjectNotFoundException;
+import com.ifpb.ifpbtvapi.model.Permissao;
 import com.ifpb.ifpbtvapi.model.Usuario;
 import com.ifpb.ifpbtvapi.model.response.UsuarioResponse;
+import com.ifpb.ifpbtvapi.repository.PermissaoRepository;
 import com.ifpb.ifpbtvapi.repository.UsuarioRepository;
 import com.ifpb.ifpbtvapi.utils.ValidarSenhas;
 
@@ -24,6 +26,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PermissaoRepository permissaoRepository;
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
@@ -48,15 +53,21 @@ public class UsuarioService {
 			
 			case 0:
 				
-				//Usuario usuario = fromRequest(usuarioRequest);
-				
-				usuario.setSenha(bcpe.encode(usuario.getSenha()));
-				
-				usuarioRepository.save(usuario);	
-				usuarioResponse.setStatus(true);
-				usuarioResponse.setMensagem("Usuário salvo com sucesso!");
-				return new ResponseEntity<UsuarioResponse>(usuarioResponse, HttpStatus.OK);	
-				
+				if(usuario.getPerfil().equals("Administrador")) {
+					List<Permissao> permissoes = permissaoRepository.findAll();
+					usuario.setPermissoes(permissoes);
+					usuario.setSenha(bcpe.encode(usuario.getSenha()));					
+					usuarioRepository.save(usuario);	
+					usuarioResponse.setStatus(true);
+					usuarioResponse.setMensagem("Usuário salvo com sucesso!");
+					return new ResponseEntity<UsuarioResponse>(usuarioResponse, HttpStatus.OK);	
+				} else {
+					usuario.setSenha(bcpe.encode(usuario.getSenha()));					
+					usuarioRepository.save(usuario);	
+					usuarioResponse.setStatus(true);
+					usuarioResponse.setMensagem("Usuário salvo com sucesso!");
+					return new ResponseEntity<UsuarioResponse>(usuarioResponse, HttpStatus.OK);	
+				}				
 			case 1:	
 				usuarioResponse.setStatus(false);
 				usuarioResponse.setMensagem("O e-mail inserido já existe!");

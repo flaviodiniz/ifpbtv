@@ -43,15 +43,17 @@ public class MidiaService {
 				//Midia midia = fromRequest(midiaRequest);
 				
 				if(midia.getChaves() != null && !midia.getChaves().isEmpty()) {
-					midiaRepository.save(midia);
+					Midia midiaSalva = midiaRepository.save(midia);
 					//chaveService.salvarChaves(midia.getChaves());
 					midiaResponse.setStatus(true);
 					midiaResponse.setMensagem("Mídia salva com sucesso!");
+					midiaResponse.setMidia(midiaSalva);
 					return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
 				}
-				midiaRepository.save(midia);
+				Midia midiaSalva = midiaRepository.save(midia);
 				midiaResponse.setStatus(true);
 				midiaResponse.setMensagem("Mídia salva com sucesso!");
+				midiaResponse.setMidia(midiaSalva);
 				return new ResponseEntity<MidiaResponse>(midiaResponse, HttpStatus.OK);
 			case 1:
 				midiaResponse.setStatus(false);
@@ -223,7 +225,7 @@ public class MidiaService {
 //		return midia;
 //	}
 	
-	public List<Midia> getMidias(String titulo, String chave, String tipo) {
-		return midiaDAO.getMidias(titulo, chave, tipo);
+	public List<Midia> getMidias(String titulo, String chave, String tipo, Long usuario) {
+		return midiaDAO.getMidias(titulo, chave, tipo, usuario);
 	}
 }

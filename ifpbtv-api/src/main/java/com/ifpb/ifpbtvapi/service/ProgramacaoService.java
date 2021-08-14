@@ -1,5 +1,7 @@
 package com.ifpb.ifpbtvapi.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +41,8 @@ public class ProgramacaoService {
 	public ResponseEntity<ProgramacaoResponse> salvar(Programacao programacao) {
 		
 		ProgramacaoResponse programacaoResponse = new ProgramacaoResponse();
-		Date data = new Date();
+		LocalDate hoje = LocalDate.now();
+		Date data = Date.from(hoje.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		programacao.setDataCriacao(data);
 		try {
 			
@@ -153,11 +156,19 @@ public class ProgramacaoService {
 		return programacaoDAO.getProgramacoes(titulo, tipoProgramacao);
 	}
 	
+	public List<Programacao> getProgramacoesGrade(Long idGrade) {
+		return programacaoDAO.getProgramacoesGrade(idGrade);
+	}
+	
 	public void deletarProgramacao(Long id) {
 		programacaoRepository.deleteById(id);
 	}
 	
 	public List<String> getTipoProgramacoes(){
 		return programacaoDAO.getTiposProgramacoes();
+	}
+	
+	public List<Object> getProgramacaoUpload(Long id){
+		return programacaoRepository.getProgramacaoUpload(id);
 	}
 }

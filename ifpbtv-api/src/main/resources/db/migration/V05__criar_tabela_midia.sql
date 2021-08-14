@@ -8,12 +8,9 @@ CREATE TABLE midia (
 	link VARCHAR(80),
 	duracao INTEGER,
 	usuario BIGINT(20),
-	programacao BIGINT(20),
-	FOREIGN KEY (usuario) REFERENCES usuario(id),
-	FOREIGN KEY (programacao) REFERENCES programacao(id)
+	FOREIGN KEY (usuario) REFERENCES usuario(id)
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
- 
- 
+  
  CREATE TABLE midia_usuario (
 	midia BIGINT(20) NOT NULL,
 	usuario BIGINT(20) NOT NULL,
@@ -21,15 +18,6 @@ CREATE TABLE midia (
 	FOREIGN KEY (midia) REFERENCES midia(id),
 	FOREIGN KEY (usuario) REFERENCES usuario(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE midia_programacao (
-	midia BIGINT(20) NOT NULL,
-	programacao BIGINT(20) NOT NULL,
-	PRIMARY KEY (midia, programacao),
-	FOREIGN KEY (midia) REFERENCES midia(id),
-	FOREIGN KEY (programacao) REFERENCES programacao(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 
 
 CREATE TABLE tipoMidia (
@@ -50,3 +38,7 @@ CREATE TABLE disponibilidadeMidia (
 
 INSERT INTO disponibilidadeMidia (dpm_id, dpm_descricao, dpm_status) VALUES (1, 'Privado', 'A');
 INSERT INTO disponibilidadeMidia (dpm_id, dpm_descricao, dpm_status) VALUES (2, 'Público', 'A');
+
+USE ifpbtv;
+set global max_allowed_packet = 3 * 1024 * 1024 * 10; # 30M to
+show VARIABLES like '% max_allowed_packet%';

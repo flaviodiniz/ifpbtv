@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.ifpb.ifpbtvapi.dao.TvDAO;
 import com.ifpb.ifpbtvapi.exceptions.ObjectNotFoundException;
+import com.ifpb.ifpbtvapi.model.GradeProgramacao;
 import com.ifpb.ifpbtvapi.model.TV;
 import com.ifpb.ifpbtvapi.model.response.TVResponse;
+import com.ifpb.ifpbtvapi.repository.GradeProgramacaoRepository;
 import com.ifpb.ifpbtvapi.repository.TVRepository;
 
 @Service
@@ -24,6 +28,9 @@ public class TVService {
 	private TVRepository tvRepository;
 	
 	@Autowired
+	private GradeProgramacaoRepository gradeProgramacaoRepository;
+	
+	@Autowired
 	private TvDAO tvDAO;
 			
 	public TV buscarPeloCodigo(Long id) {
@@ -31,12 +38,19 @@ public class TVService {
 		return tv.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + TV.class));
 	}
 	
-
+	@Transactional
 	public ResponseEntity<TVResponse> salvar(TV tv) {
 		TVResponse tvResponse = new TVResponse();	
 		try {
 			switch (validarInformacoes(tv, null)) {
-			case 0:	
+			case 0:
+				GradeProgramacao grade = new GradeProgramacao();
+				grade.setExibindo(false);
+				grade.setAtiva(false);
+				grade.setTitulo(tv.getLocal());
+				GradeProgramacao gradeSalva = gradeProgramacaoRepository.save(grade);
+				tv.setGradeProgramacao(gradeSalva.getId());
+				System.out.println(tv.getGradeProgramacao());
 				tvRepository.save(tv);
 				tvResponse.setStatus(true);
 				tvResponse.setMensagem("TV salva com sucesso!");
@@ -103,8 +117,8 @@ public class TVService {
 		try {	
 			if(tv.getLocal().isEmpty() || tv.getModelo().isEmpty() || tv.getMarca().isEmpty() || tv.isDisponivel() == null) return erroInterno;
 			if(id == null) { //SALVANDO TV PELA PRIMEIRA VEZ
-				TV aux = tvRepository.findByChave(tv.getChave());
-				if(aux != null) return erroChave;
+				//TV aux = tvRepository.findByChave(tv.getChave());
+				//if(aux != null) return erroChave;
 				return tudoOk;
 				
 			} else { //ATUALIZANDO TV JA EXISTENTE
@@ -145,19 +159,16 @@ public class TVService {
 		tvRepository.deleteById(id);
 	}
 	
-//	private TV fromRequest(TVRequest tvRequest) {
-//		
-//		TV tv = new TV(null, tvRequest.getLocal(), tvRequest.getModelo(), tvRequest.getMarca(), tvRequest.getChave(), tvRequest.getDisponivel(), tvRequest.isOnline());
-//		
-//		return tv;
-//	}
-
 	public List<String> listarMarcas() {	
 		return tvDAO.getMarcas();
 	}
 	
 	public List<TV> getTvs(String local) {	
 		return tvDAO.filtrarTvs(local);
+	}
+	
+	public GradeProgramacao getGradeTv(Long id) {
+		return tvDAO.getGradeTv(id);
 	}
 
 }

@@ -3,6 +3,9 @@ package com.ifpb.ifpbtvapi.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,10 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "programacao")
@@ -21,7 +22,6 @@ public class Programacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;
 	
 	private String titulo;
@@ -30,10 +30,19 @@ public class Programacao {
 	private String horarioFim;
 	private String diaSemana;
 	private Date dataCriacao;
+	private Date dataExibicao;
+	private Long usuario;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "midia_programacao", joinColumns = @JoinColumn(name = "programacao")
-	, inverseJoinColumns = @JoinColumn(name = "midia"))
+	//@OneToMany
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="programacao_id", 
+        joinColumns = @JoinColumn(name = "id"))
+    @Column(name="datas_programacao")
+	private List<Date> datasExibidas;
+	
+	@ManyToMany
+	@JoinTable(name = "midia_programacao", joinColumns = @JoinColumn(name = "programacao_id")
+	, inverseJoinColumns = @JoinColumn(name = "midia_id"))
 	private List<Midia> playlist;
 	
 	public Programacao() {}
@@ -100,6 +109,30 @@ public class Programacao {
 
 	public void setPlaylist(List<Midia> playlist) {
 		this.playlist = playlist;
+	}
+
+	public Date getDataExibicao() {
+		return dataExibicao;
+	}
+
+	public void setDataExibicao(Date dataExibicao) {
+		this.dataExibicao = dataExibicao;
+	}
+
+	public List<Date> getDatasExibidas() {
+		return datasExibidas;
+	}
+
+	public void setDatasExibidas(List<Date> datasExibidas) {
+		this.datasExibidas = datasExibidas;
+	}
+	
+	public Long getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Long usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

@@ -1,12 +1,4 @@
-CREATE TABLE grade_programacao ( 
-	id BIGINT(50) PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(50) NOT NULL,
-	exibindo BOOLEAN,
-	ativa BOOLEAN
- )ENGINE=InnoDB DEFAULT CHARSET=utf8;
- 
- 
- CREATE TABLE grade_de_programacao (
+CREATE TABLE grade_de_programacao (
 	grade BIGINT(20) NOT NULL,
 	programacao BIGINT(20) NOT NULL,
 	PRIMARY KEY (grade, programacao),

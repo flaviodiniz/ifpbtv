@@ -1,10 +1,9 @@
 package com.ifpb.ifpbtvapi.resource;
 
 import java.io.IOException;
+
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
-
-import javax.transaction.Transactional;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,10 @@ public class UploadResource {
 	@Autowired
 	private UploadRepository repository;
 
-	// @CrossOrigin(origins = "http://localhost:4200")
+	// @CrossOrigin(origins = "http://localhost:4200")Content-Type: multipart/mixed;boundary=YourBoundaryOfChoiceHere
 	@RequestMapping(value = "/{midia}", method = RequestMethod.POST)
-	public ResponseEntity<Upload> uploadDocumentoJpeg(@RequestParam("imageFile") MultipartFile file, @PathVariable Long midia) {
-		
+	public ResponseEntity<Upload> uploadDocumentoJpeg(@RequestParam MultipartFile file, @PathVariable Long midia) {
+		//disco.salvarFoto(file);
 		System.out.println("Original Image Byte Size - " + file);
 		try {			
 			Upload u = uploadService.salvar(file, midia);

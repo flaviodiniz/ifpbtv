@@ -29,6 +29,23 @@ public class UploadService {
 			InputStream initialStream =  file.getInputStream();
 			byte[] buffer = new byte[initialStream.available()];
 			initialStream.read(buffer);
+			initialStream.close();
+//			Deflater deflater = new Deflater();
+//			deflater.setInput(file.getBytes());
+//			deflater.finish();
+//			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(file.getBytes().length);
+//			byte[] buffer = new byte[1024];
+//	        while (!deflater.finished()) {	
+//	            int count = deflater.deflate(buffer);
+//	            outputStream.write(buffer, 0, count);
+//	        }
+//	        try {	
+//	            outputStream.close();	
+//	        } catch (IOException e) {
+//	        }
+//	
+//	        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+	        
 			Upload upload = new Upload();
 			upload.setMidia(midia2);
 			upload.setArquivo(buffer);
