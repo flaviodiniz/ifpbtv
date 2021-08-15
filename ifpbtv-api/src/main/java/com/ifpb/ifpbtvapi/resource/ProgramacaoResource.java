@@ -78,6 +78,12 @@ public class ProgramacaoResource {
 		return ResponseEntity.ok().body(programacoes);
 	} 
 	
+	@GetMapping("/listarProgramacoesParaGrade/{idGrade}")
+	public ResponseEntity<List<Programacao>> getProgramacoesParaGrade(@PathVariable Long idGrade) {
+		List<Programacao> programacoes = programacaoService.getProgramacoesParaGrade(idGrade);
+		return ResponseEntity.ok().body(programacoes);
+	} 
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> remove(@PathVariable Long id) {
 		try {

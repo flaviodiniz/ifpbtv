@@ -110,6 +110,7 @@ public class ProgramacaoDAO {
 					programacao.setHorarioInicio(rs.getString("horarioInicio"));
 					programacao.setHorarioFim(rs.getString("horarioFim"));
 					programacao.setDataCriacao(rs.getDate("dataCriacao"));
+					programacao.setDataExibicao(rs.getDate("dataExibicao"));
 					lista.add(programacao);
 				}
 			}
@@ -119,5 +120,37 @@ public class ProgramacaoDAO {
 		return lista;
 	}
 	
+	public List<Programacao> getProgramacoesParaGrade(Long idGrade) {
+		String sql = "SELECT * FROM programacao prg\r\n" + 
+				"where prg.usuario = ? and dataExibicao > sysdate()\r\n" + 
+				"order by dataExibicao";
+		ArrayList<Programacao> lista = null;
+		ParamDAO[] params = new ParamDAO[1];
+		
+		params[0] = new ParamDAO(idGrade, Types.BIGINT);
+		
+		try {
+			ResultSet rs = executeQuery.executarConsultaSelect(sql, params);
+			Programacao programacao = null;
+			if(rs != null) {
+				lista = new ArrayList<Programacao>();
+				while(rs.next()){	
+					programacao = new Programacao();
+					programacao.setTitulo(rs.getString("titulo"));
+					programacao.setTipoProgramacao(rs.getString("tipoProgramacao"));
+					programacao.setId(Long.parseLong(rs.getString("id")));
+					programacao.setDiaSemana(rs.getString("diaSemana"));
+					programacao.setHorarioInicio(rs.getString("horarioInicio"));
+					programacao.setHorarioFim(rs.getString("horarioFim"));
+					programacao.setDataCriacao(rs.getDate("dataCriacao"));
+					programacao.setDataExibicao(rs.getDate("dataExibicao"));
+					lista.add(programacao);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
 
 }

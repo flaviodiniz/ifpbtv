@@ -160,6 +160,10 @@ public class ProgramacaoService {
 		return programacaoDAO.getProgramacoesGrade(idGrade);
 	}
 	
+	public List<Programacao> getProgramacoesParaGrade(Long idGrade) {
+		return programacaoDAO.getProgramacoesParaGrade(idGrade);
+	}
+	
 	public void deletarProgramacao(Long id) {
 		programacaoRepository.deleteById(id);
 	}
